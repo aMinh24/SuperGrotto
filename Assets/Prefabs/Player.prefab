@@ -98,6 +98,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3dc6726e033844eb704c4bbc313b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody: {fileID: 0}
+  boxCollider: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  playerSpeed: 5
+  jumpHeight: 10
 --- !u!95 &5716761329942988439
 Animator:
   serializedVersion: 3
