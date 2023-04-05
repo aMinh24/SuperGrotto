@@ -18,12 +18,18 @@ public class PlayerMovement : MonoBehaviour
     private float playerSpeed;
     [SerializeField]
     private float jumpHeight;
+    [SerializeField]
+    private GameObject bulletPrefab;
+    [SerializeField]
+    private Transform firepoint;
     private float dirX;
     private float dirY;
-
-    private enum MovementState { Idle,Running,Jumping,Falling};
+    
+    private enum MovementState { Idle,Running,Jumping,Falling,Hurt,Shoot,RunningShoot};
     private MovementState movementState;
-
+    private bool isShooting = false;
+    private bool isRunning = false;
+    private bool isOnAir = false;
 
     void Awake()
     {
@@ -37,7 +43,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         dirX = Input.GetAxisRaw("Horizontal");
+        if (dirX != 0) isRunning= true;
+        else isRunning = false;
+        Debug.Log(dirX);
         jumping();
+        shooting();
         UpdateAnimation();
     }
     private void FixedUpdate()
@@ -58,6 +68,15 @@ public class PlayerMovement : MonoBehaviour
             
         }
     }
+    private void shooting()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            GameObject bullet = Instantiate(bulletPrefab, firepoint.position, Quaternion.identity);
+            Destroy(bullet, 2f);
+            isShooting = true;
+        }    
+    }    
     private void UpdateAnimation()
     {
         if (dirX > 0f)
@@ -75,14 +94,29 @@ public class PlayerMovement : MonoBehaviour
 
         if (rigidbody.velocity.y > 0.1f)
         {
+            isOnAir = true;
             movementState= MovementState.Jumping;
         }
         else if (rigidbody.velocity.y < -0.1f)
         {
-            movementState= MovementState.Falling;
+            isOnAir = true;
+            movementState = MovementState.Falling;
         }
+        if(isShooting && (!isRunning||isOnAir))
+        {
+            movementState = MovementState.Shoot;
+            isShooting = false;
+        }
+        Debug.Log(isRunning);
+        if (isShooting && isRunning)
+        {
+            Debug.Log("run shoot");
+            movementState = MovementState.RunningShoot;
+            isShooting = false;
+        }
+        Debug.Log(movementState);
         animator.SetInteger("State", (int)movementState);
-    }
+    } 
     private bool IsGround()
     {
         return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);
