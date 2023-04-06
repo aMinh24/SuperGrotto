@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  speed: 5
+  speed: 10
   spriteRenderer: {fileID: 0}
 --- !u!50 &3876477195323934104
 Rigidbody2D:

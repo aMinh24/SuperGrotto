@@ -22,41 +22,64 @@ public class PlayerMovement : MonoBehaviour
     private GameObject bulletPrefab;
     [SerializeField]
     private List<Transform> firepoint;
+    [SerializeField]
+    private TrailRenderer trailRenderer;
+
     private float dirX;
     private float dirY;
-    
-    private enum MovementState { Idle,Running,Jumping,Falling,Hurt,Shoot,RunningShoot};
+
+    private enum MovementState { Idle, Running, Jumping, Falling, Nothing, Shoot, RunningShoot };
     private MovementState movementState;
     private bool isShooting = false;
     private bool isRunning = false;
     private bool isOnAir = false;
     private bool isWaiting = false;
-    private float waitingTime = 0;
+    private float shootingTime = 0;
     public static bool side;
-    PlayerLives pl = new PlayerLives();
+    private bool isNotDoubleJump;
+
+    private bool canDash = true;
+    private bool isDashing;
+    private float dashingPower = 24f;
+    private float dashingTime = 0.2f;
+    private float dashingCooldown = 1f;
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        
+        trailRenderer = GetComponent<TrailRenderer>();
     }
-
+    private void Start()
+    {
+        trailRenderer.emitting = false;
+    }
     // Update is called once per frame
     void Update()
     {
+        if (isDashing)
+        {
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.K) &&canDash) 
+        {
+            StartCoroutine(Dash());    
+        }
         dirX = Input.GetAxisRaw("Horizontal");
         if (dirX != 0) isRunning = true;
         else isRunning = false;
-        if (Time.time < waitingTime) isWaiting = true;
-        else isWaiting= false;
-        jumping();
         shooting();
+        jumping();
+        
         UpdateAnimation();
     }
     private void FixedUpdate()
     {
+        if (isDashing)
+        {
+            return;
+        }
         moving();
     }
     private void moving()
@@ -66,22 +89,33 @@ public class PlayerMovement : MonoBehaviour
     }
     private void jumping()
     {
+        if (IsGround() && !Input.GetButton("Jump"))
+        {
+            isNotDoubleJump = false;
+        }
         if (Input.GetButtonDown("Jump"))
         {
-            if (IsGround())
-            rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpHeight);
-            
+            if (IsGround()|| isNotDoubleJump)
+            {
+                rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpHeight);
+                isNotDoubleJump = !isNotDoubleJump;
+                animator.SetBool("doubleJump", !isNotDoubleJump);
+                isShooting = false;
+            }
+
         }
     }
     private void shooting()
     {
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J)&& Time.time>=shootingTime)
         {
-            
+            Invoke("ShootAnimation", 0.2f);
             isShooting = true;
-        }    
-    }    
-    private void ShootAnimation() 
+            shootingTime = Time.time + 1f;
+        }
+        
+    }
+    private void ShootAnimation()
     {
         GameObject bullet;
         if (side)
@@ -89,63 +123,84 @@ public class PlayerMovement : MonoBehaviour
             bullet = Instantiate(bulletPrefab, firepoint[1].position, Quaternion.identity);
         }
         else bullet = Instantiate(bulletPrefab, firepoint[0].position, Quaternion.identity);
-        Destroy(bullet, 5f);
+        Destroy(bullet, 3f);
     }
     private void UpdateAnimation()
     {
-        if (!isWaiting)
-        {
-            if (dirX > 0f)
-            {
-                spriteRenderer.flipX = false;
-                side = false;
-                if (IsGround() && !isShooting) movementState = MovementState.Running;
-            }
-            else if (dirX < 0f)
-            {
-                spriteRenderer.flipX = true;
-                side = true;
-                if (IsGround() && !isShooting)
-                    movementState = MovementState.Running;
-            }
-            else movementState = MovementState.Idle;
 
-            isOnAir = false;
-            if (rigidbody.velocity.y > 0.1f)
-            {
-                isOnAir = true;
-                movementState = MovementState.Jumping;
-            }
-            else if (rigidbody.velocity.y < -0.1f)
-            {
-                isOnAir = true;
-                movementState = MovementState.Falling;
-            }
-        }
-        
-        if (isShooting && (!isRunning||isOnAir))
+        if (dirX > 0f)
         {
+            spriteRenderer.flipX = false;
+            side = false;
+            if (IsGround() && !isShooting) movementState = MovementState.Running;
+        }
+        else if (dirX < 0f)
+        {
+            spriteRenderer.flipX = true;
+            side = true;
+            if (IsGround() && !isShooting)
+                movementState = MovementState.Running;
+        }
+        else movementState = MovementState.Idle;
+
+        isOnAir = false;
+        if (rigidbody.velocity.y > 0.1f)
+        {
+            isOnAir = true;
+            movementState = MovementState.Jumping;
+        }
+        else if (rigidbody.velocity.y < -0.1f)
+        {
+            isOnAir = true;
+            movementState = MovementState.Falling;
+        }
+
+
+        if (isShooting && (!isRunning || isOnAir))
+        {
+            //Invoke("ShootAnimation", 0.2f);
             movementState = MovementState.Shoot;
             isShooting = false;
         }
         if (isShooting && isRunning)
         {
             Debug.Log("run shoot");
+            
             movementState = MovementState.RunningShoot;
-            waitingTime += 1f;
-            isShooting = false;
+            
+            //isShooting = false;
         }
-        Debug.Log("Hurt " + pl.getIsHurt());
-        if (pl.getIsHurt() && !isOnAir)
-        {
-            Debug.Log("hurt");
-            pl.setIsHurt(false);
-            movementState = MovementState.Hurt; 
-        }
+
+        Debug.Log(movementState.ToString());
         animator.SetInteger("State", (int)movementState);
-    } 
+    }
     private bool IsGround()
     {
         return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);
+    }
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rigidbody.gravityScale;
+        rigidbody.gravityScale = 0f;
+        rigidbody.velocity = new Vector2(dirX * dashingPower, 0f);
+        if(IsGround())
+        {
+            animator.SetBool("Slide", true);
+        }
+        else
+        {
+            
+            trailRenderer.emitting = true;
+        }    
+        
+        yield return new WaitForSeconds(dashingTime);
+        trailRenderer.emitting = false;
+        rigidbody.gravityScale = originalGravity;
+        isDashing = false;
+        animator.Rebind();
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
     }
 }
