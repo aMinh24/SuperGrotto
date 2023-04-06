@@ -148,7 +148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &66114070
 Transform:
   m_ObjectHideFlags: 0
@@ -261,7 +261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 93443402}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.84, y: -0.19, z: 0}
+  m_LocalPosition: {x: 0.52, y: -0.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 880626675}
@@ -5310,6 +5310,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf7d28d99ae7de24693c0576fb8fe9de, type: 3}
+--- !u!1 &1461010341 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8409716345521808028, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+  m_PrefabInstance: {fileID: 8409716345231175383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1461010347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461010341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5ebe192a6ff4ea4ebae94c9960265b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushForce: 10
 --- !u!4 &1493533479 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3297573791770124334, guid: 688f17fcca8c03c4cb8f4f1904eb5937, type: 3}
@@ -14097,7 +14115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1697058475
 Transform:
   m_ObjectHideFlags: 0
@@ -14325,6 +14343,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7983463682264504859, guid: 284077bb37655a7448be7a0c1761c82f, type: 3}
   m_PrefabInstance: {fileID: 531812670}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1856083267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1856083268}
+  m_Layer: 0
+  m_Name: point (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1856083268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856083267}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.42, y: -0.19, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 880626675}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1922400321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15959,11 +16007,23 @@ PrefabInstance:
     - target: {fileID: 410913077382618981, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
       propertyPath: bulletPrefab
       value: 
-      objectReference: {fileID: 1892950726716990845, guid: b25350bbdc9fbf848b6daa05dd80a95b, type: 3}
+      objectReference: {fileID: 2889110106480740408, guid: 86ee8c2cbae265e47942e19ecf8a1f39, type: 3}
+    - target: {fileID: 410913077382618981, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: firepoint.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 410913077382618981, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
       propertyPath: jumpableGround.m_Bits
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 410913077382618981, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: firepoint.Array.data[0]
+      value: 
+      objectReference: {fileID: 93443403}
+    - target: {fileID: 410913077382618981, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: firepoint.Array.data[1]
+      value: 
+      objectReference: {fileID: 1856083268}
     - target: {fileID: 7588337871342558846, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
       propertyPath: m_Constraints
       value: 4

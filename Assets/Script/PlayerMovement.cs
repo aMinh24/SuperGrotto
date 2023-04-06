@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject bulletPrefab;
     [SerializeField]
-    private Transform firepoint;
+    private List<Transform> firepoint;
     private float dirX;
     private float dirY;
     
@@ -30,22 +30,27 @@ public class PlayerMovement : MonoBehaviour
     private bool isShooting = false;
     private bool isRunning = false;
     private bool isOnAir = false;
-
+    private bool isWaiting = false;
+    private float waitingTime = 0;
+    public static bool side;
+    PlayerLives pl = new PlayerLives();
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         dirX = Input.GetAxisRaw("Horizontal");
-        if (dirX != 0) isRunning= true;
+        if (dirX != 0) isRunning = true;
         else isRunning = false;
-        Debug.Log(dirX);
+        if (Time.time < waitingTime) isWaiting = true;
+        else isWaiting= false;
         jumping();
         shooting();
         UpdateAnimation();
@@ -72,49 +77,71 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            GameObject bullet = Instantiate(bulletPrefab, firepoint.position, Quaternion.identity);
-            Destroy(bullet, 2f);
+            
             isShooting = true;
         }    
     }    
+    private void ShootAnimation() 
+    {
+        GameObject bullet;
+        if (side)
+        {
+            bullet = Instantiate(bulletPrefab, firepoint[1].position, Quaternion.identity);
+        }
+        else bullet = Instantiate(bulletPrefab, firepoint[0].position, Quaternion.identity);
+        Destroy(bullet, 5f);
+    }
     private void UpdateAnimation()
     {
-        if (dirX > 0f)
+        if (!isWaiting)
         {
-            spriteRenderer.flipX = false;
-            if (IsGround()) movementState = MovementState.Running;
-        }
-        else if (dirX < 0f)
-        {
-            spriteRenderer.flipX = true;
-            if (IsGround())
-                movementState = MovementState.Running;
-        }
-        else movementState = MovementState.Idle;
+            if (dirX > 0f)
+            {
+                spriteRenderer.flipX = false;
+                side = false;
+                if (IsGround() && !isShooting) movementState = MovementState.Running;
+            }
+            else if (dirX < 0f)
+            {
+                spriteRenderer.flipX = true;
+                side = true;
+                if (IsGround() && !isShooting)
+                    movementState = MovementState.Running;
+            }
+            else movementState = MovementState.Idle;
 
-        if (rigidbody.velocity.y > 0.1f)
-        {
-            isOnAir = true;
-            movementState= MovementState.Jumping;
+            isOnAir = false;
+            if (rigidbody.velocity.y > 0.1f)
+            {
+                isOnAir = true;
+                movementState = MovementState.Jumping;
+            }
+            else if (rigidbody.velocity.y < -0.1f)
+            {
+                isOnAir = true;
+                movementState = MovementState.Falling;
+            }
         }
-        else if (rigidbody.velocity.y < -0.1f)
-        {
-            isOnAir = true;
-            movementState = MovementState.Falling;
-        }
-        if(isShooting && (!isRunning||isOnAir))
+        
+        if (isShooting && (!isRunning||isOnAir))
         {
             movementState = MovementState.Shoot;
             isShooting = false;
         }
-        Debug.Log(isRunning);
         if (isShooting && isRunning)
         {
             Debug.Log("run shoot");
             movementState = MovementState.RunningShoot;
+            waitingTime += 1f;
             isShooting = false;
         }
-        Debug.Log(movementState);
+        Debug.Log("Hurt " + pl.getIsHurt());
+        if (pl.getIsHurt() && !isOnAir)
+        {
+            Debug.Log("hurt");
+            pl.setIsHurt(false);
+            movementState = MovementState.Hurt; 
+        }
         animator.SetInteger("State", (int)movementState);
     } 
     private bool IsGround()
