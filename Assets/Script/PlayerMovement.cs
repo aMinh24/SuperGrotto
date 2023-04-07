@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject bulletPrefab;
     [SerializeField]
+    private GameObject skillPrefab;
+    [SerializeField]
     private List<Transform> firepoint;
     [SerializeField]
     private TrailRenderer trailRenderer;
@@ -28,21 +30,29 @@ public class PlayerMovement : MonoBehaviour
     private float dirX;
     private float dirY;
 
-    private enum MovementState { Idle, Running, Jumping, Falling, Nothing, Shoot, RunningShoot };
+    private enum MovementState { Idle, Running, Jumping, Falling, Duck, Shoot, RunningShoot };
     private MovementState movementState;
     private bool isShooting = false;
     private bool isRunning = false;
     private bool isOnAir = false;
     private bool isWaiting = false;
     private float shootingTime = 0;
+    private float cooldownSkill = 0;
+    private float comboTime = 0;
     public static bool side;
     private bool isNotDoubleJump;
+    private bool isSkilling = false;
+    private bool Boom = false;
 
     private bool canDash = true;
     private bool isDashing;
     private float dashingPower = 24f;
     private float dashingTime = 0.2f;
     private float dashingCooldown = 1f;
+
+    private KeyCode[] comboKeys = { KeyCode.S, KeyCode.D, KeyCode.J };
+    private int currentKey = 0;
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -62,16 +72,18 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.K) &&canDash) 
+        if (Input.GetKeyDown(KeyCode.K) && canDash)
         {
-            StartCoroutine(Dash());    
+            StartCoroutine(Dash());
         }
-        dirX = Input.GetAxisRaw("Horizontal");
+        if (!isSkilling)
+            dirX = Input.GetAxisRaw("Horizontal");
         if (dirX != 0) isRunning = true;
         else isRunning = false;
+        Boom = false;
         shooting();
         jumping();
-        
+
         UpdateAnimation();
     }
     private void FixedUpdate()
@@ -95,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetButtonDown("Jump"))
         {
-            if (IsGround()|| isNotDoubleJump)
+            if (IsGround() || isNotDoubleJump)
             {
                 rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpHeight);
                 isNotDoubleJump = !isNotDoubleJump;
@@ -107,13 +119,43 @@ public class PlayerMovement : MonoBehaviour
     }
     private void shooting()
     {
-        if (Input.GetKeyDown(KeyCode.J)&& Time.time>=shootingTime)
+        if (movementState == MovementState.Idle && Time.time >= cooldownSkill && Input.GetKeyDown(comboKeys[currentKey]) && !isSkilling)
+        {
+            Debug.Log("S");
+            comboTime = Time.time + 2f;
+            isSkilling = true;
+            if (currentKey == 0) currentKey += 1;
+        }
+        if (Input.GetKeyDown(KeyCode.J) && Time.time >= shootingTime && !isSkilling)
         {
             Invoke("ShootAnimation", 0.2f);
             isShooting = true;
             shootingTime = Time.time + 1f;
         }
-        
+        if (isSkilling && Time.time < comboTime)
+        {
+            if (Input.GetKeyDown(comboKeys[currentKey]))
+            {
+                currentKey++;
+                if (currentKey == 3)
+                {
+                    Invoke("SkillAnimation", 0.3f);
+                    currentKey = 0;
+                    isSkilling = false;
+                    cooldownSkill = Time.time + 1f ;
+                    Boom = true;
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Space))
+            {
+                currentKey = 0;
+                isSkilling = false;
+            }
+
+        }
+        if (Time.time > comboTime) isSkilling= false;
+        Debug.Log(isSkilling);
+
     }
     private void ShootAnimation()
     {
@@ -123,6 +165,16 @@ public class PlayerMovement : MonoBehaviour
             bullet = Instantiate(bulletPrefab, firepoint[1].position, Quaternion.identity);
         }
         else bullet = Instantiate(bulletPrefab, firepoint[0].position, Quaternion.identity);
+        Destroy(bullet, 3f);
+    }
+    private void SkillAnimation()
+    {
+        GameObject bullet;
+        if (side)
+        {
+            bullet = Instantiate(skillPrefab, firepoint[1].position, Quaternion.identity);
+        }
+        else bullet = Instantiate(skillPrefab, firepoint[0].position, Quaternion.identity);
         Destroy(bullet, 3f);
     }
     private void UpdateAnimation()
@@ -165,12 +217,16 @@ public class PlayerMovement : MonoBehaviour
         if (isShooting && isRunning)
         {
             Debug.Log("run shoot");
-            
+
             movementState = MovementState.RunningShoot;
-            
+
             //isShooting = false;
         }
-
+        if (Boom)
+        {
+            movementState = MovementState.Duck;
+            Boom = false;
+        }
         Debug.Log(movementState.ToString());
         animator.SetInteger("State", (int)movementState);
     }
@@ -185,16 +241,17 @@ public class PlayerMovement : MonoBehaviour
         float originalGravity = rigidbody.gravityScale;
         rigidbody.gravityScale = 0f;
         rigidbody.velocity = new Vector2(dirX * dashingPower, 0f);
-        if(IsGround())
+        if (IsGround())
         {
+            rigidbody.gravityScale = originalGravity;
             animator.SetBool("Slide", true);
         }
         else
         {
-            
+
             trailRenderer.emitting = true;
-        }    
-        
+        }
+
         yield return new WaitForSeconds(dashingTime);
         trailRenderer.emitting = false;
         rigidbody.gravityScale = originalGravity;

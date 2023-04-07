@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
-public class BulletPlayer : MonoBehaviour
+public class PlayerSkill : MonoBehaviour
 {
     [SerializeField]
     private Rigidbody2D rb;
@@ -15,22 +14,23 @@ public class BulletPlayer : MonoBehaviour
     private CircleCollider2D circleCollider;
     [SerializeField]
     private Animator animator;
-    
+    [SerializeField]
+    private GameObject Boom;
     private void Awake()
     {
-        spriteRenderer= GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         if (PlayerMovement.side)
         {
-            spriteRenderer.flipX= true;
+            spriteRenderer.flipX = true;
             rb.AddForce(new Vector2(-1, 0) * speed, ForceMode2D.Impulse);
         }
         else
         {
-            spriteRenderer.flipX= false;
+            spriteRenderer.flipX = false;
             rb.AddForce(new Vector2(1, 0) * speed, ForceMode2D.Impulse);
         }
-        circleCollider= GetComponent<CircleCollider2D>();
+        circleCollider = GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
     }
 
@@ -38,15 +38,11 @@ public class BulletPlayer : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("Map"))
         {
-            animator.SetInteger("State", 1);
-            rb.bodyType = RigidbodyType2D.Static;
-            Invoke("DesObj", 0.4f);
-
+            
+            Destroy(gameObject);
+            GameObject BoomSkill;
+            BoomSkill = Instantiate(Boom, transform.position, Quaternion.identity);
+            Destroy(BoomSkill,0.7f);
         }
-    }
-    
-    private void DesObj()
-    {
-        Destroy(gameObject);
     }
 }

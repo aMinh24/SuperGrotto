@@ -7,6 +7,8 @@ TagManager:
   - Monster
   - Bullet
   - PlayerBullet
+  - Map
+  - Skill
   layers:
   - Default
   - TransparentFX

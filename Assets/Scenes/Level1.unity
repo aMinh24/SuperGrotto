@@ -5820,7 +5820,7 @@ GameObject:
   - component: {fileID: 1604485522}
   m_Layer: 3
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16119,6 +16119,10 @@ PrefabInstance:
       propertyPath: playerSpeed
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 410913077382618981, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: skillPrefab
+      value: 
+      objectReference: {fileID: 2402844834515907722, guid: 928654b1c801fa340a046bca26ac63bb, type: 3}
     - target: {fileID: 410913077382618981, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
       propertyPath: bulletPrefab
       value: 
