@@ -12,15 +12,21 @@ public class PlayerLives : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private Rigidbody2D rb;
+    [SerializeField]
+    private float jumpHeight;
+    [SerializeField]
+    private BoxCollider2D boxCollider;
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        boxCollider= GetComponent<BoxCollider2D>();
     }
     private void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.CompareTag("Monster"))
         {
-            
+            lives--;
             animator.SetTrigger("Hurt");
             Rigidbody2D enemyRigidbody = coll.collider.GetComponent<Rigidbody2D>(); // Lấy Rigidbody của đối tượng kẻ địch
 
@@ -31,9 +37,29 @@ public class PlayerLives : MonoBehaviour
             }
             Invoke("rebind", 0.3f);
         }
-    }    
+        else if ((coll.gameObject.CompareTag("Bullet")))
+        {
+            lives--;
+            animator.SetTrigger("Hurt");
+            Invoke("rebind", 0.3f);
+        }
+        if (lives == 0)
+        {
+            StartCoroutine(Die());
+        }
+    }
     private void rebind()
     {
         animator.Rebind();
     }
+    private IEnumerator Die()
+    {
+        Time.timeScale = 0.5f;
+        animator.SetBool("Dead", true);
+        rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
+        boxCollider.isTrigger = true;
+        yield return new WaitForSeconds(2f);
+        Time.timeScale = 1f;
+        Destroy(this, 2f);
+    }    
 }

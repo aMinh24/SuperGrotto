@@ -5437,6 +5437,8 @@ MonoBehaviour:
   pushForce: 10
   animator: {fileID: 0}
   rb: {fileID: 0}
+  jumpHeight: 10
+  boxCollider: {fileID: 0}
 --- !u!4 &1493533479 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3297573791770124334, guid: 688f17fcca8c03c4cb8f4f1904eb5937, type: 3}
