@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class PlayerSkill : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private GameObject Boom;
+    public CinemachineCollisionImpulseSource cinemachineImpulseSource;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -42,6 +44,7 @@ public class PlayerSkill : MonoBehaviour
             Destroy(gameObject);
             GameObject BoomSkill;
             BoomSkill = Instantiate(Boom, transform.position, Quaternion.identity);
+            cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
             Destroy(BoomSkill,0.7f);
         }
     }

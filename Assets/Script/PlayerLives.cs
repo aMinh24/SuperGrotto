@@ -30,6 +30,11 @@ public class PlayerLives : MonoBehaviour
         if (coll.gameObject.CompareTag("Monster"))
         {
             lives--;
+            if (lives == 0)
+            {
+                StartCoroutine(Die());
+                return;
+            }
             animator.SetTrigger("Hurt");
             Rigidbody2D enemyRigidbody = coll.collider.GetComponent<Rigidbody2D>(); // Lấy Rigidbody của đối tượng kẻ địch
             cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
@@ -43,13 +48,16 @@ public class PlayerLives : MonoBehaviour
         else if ((coll.gameObject.CompareTag("Bullet")))
         {
             lives--;
+            if (lives == 0)
+            {
+                StartCoroutine(Die());
+                return;
+            }
+            cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
             animator.SetTrigger("Hurt");
             Invoke("rebind", 0.3f);
         }
-        if (lives == 0)
-        {
-            StartCoroutine(Die());
-        }
+        
     }
     private void rebind()
     {
@@ -58,11 +66,11 @@ public class PlayerLives : MonoBehaviour
     private IEnumerator Die()
     {
         cinemachine.m_Follow = null;     
-        Time.timeScale = 0.5f;
+        Time.timeScale = 0.2f;
         animator.SetBool("Dead", true);
         rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
         boxCollider.isTrigger = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         Time.timeScale = 1f;
         Destroy(this, 2f);
     }    
