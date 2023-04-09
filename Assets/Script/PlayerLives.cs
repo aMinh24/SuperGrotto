@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
-
+using Cinemachine;
 public class PlayerLives : MonoBehaviour
 {
     private int lives = 3;
@@ -16,6 +16,9 @@ public class PlayerLives : MonoBehaviour
     private float jumpHeight;
     [SerializeField]
     private BoxCollider2D boxCollider;
+    public CinemachineCollisionImpulseSource cinemachineImpulseSource;
+    [SerializeField]
+    private CinemachineVirtualCamera cinemachine;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -29,7 +32,7 @@ public class PlayerLives : MonoBehaviour
             lives--;
             animator.SetTrigger("Hurt");
             Rigidbody2D enemyRigidbody = coll.collider.GetComponent<Rigidbody2D>(); // Lấy Rigidbody của đối tượng kẻ địch
-
+            cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
             if (enemyRigidbody != null) // Kiểm tra nếu đối tượng kẻ địch có Rigidbody
             {
                 Vector2 pushDirection = (enemyRigidbody.transform.position - transform.position).normalized; // Tính hướng đẩy từ nhân vật tới kẻ địch
@@ -54,6 +57,7 @@ public class PlayerLives : MonoBehaviour
     }
     private IEnumerator Die()
     {
+        cinemachine.m_Follow = null;     
         Time.timeScale = 0.5f;
         animator.SetBool("Dead", true);
         rb.velocity = new Vector2(rb.velocity.x, jumpHeight);

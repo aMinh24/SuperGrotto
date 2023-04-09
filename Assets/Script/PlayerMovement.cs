@@ -68,8 +68,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isDashing)
+        if (isDashing || animator.GetBool("Dead"))
         {
+            Debug.Log("dead");
             return;
         }
         if (Input.GetKeyDown(KeyCode.K) && canDash)
@@ -88,8 +89,9 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (isDashing)
+        if (isDashing||animator.GetBool("Dead"))
         {
+            Debug.Log("DeadM");
             return;
         }
         moving();
@@ -121,7 +123,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (movementState == MovementState.Idle && Time.time >= cooldownSkill && Input.GetKeyDown(comboKeys[currentKey]) && !isSkilling)
         {
-            Debug.Log("S");
             comboTime = Time.time + 2f;
             isSkilling = true;
             if (currentKey == 0) currentKey += 1;
@@ -154,7 +155,6 @@ public class PlayerMovement : MonoBehaviour
 
         }
         if (Time.time > comboTime) isSkilling= false;
-        Debug.Log(isSkilling);
 
     }
     private void ShootAnimation()
@@ -179,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void UpdateAnimation()
     {
-
+        if (animator.GetBool("Dead")) return;
         if (dirX > 0f)
         {
             spriteRenderer.flipX = false;
@@ -227,7 +227,6 @@ public class PlayerMovement : MonoBehaviour
             movementState = MovementState.Duck;
             Boom = false;
         }
-        Debug.Log(movementState.ToString());
         animator.SetInteger("State", (int)movementState);
     }
     private bool IsGround()
@@ -237,7 +236,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator Dash()
     {
         canDash = false;
-        isDashing = true;
+        isDashing = true;       
         float originalGravity = rigidbody.gravityScale;
         rigidbody.gravityScale = 0f;
         rigidbody.velocity = new Vector2(dirX * dashingPower, 0f);
