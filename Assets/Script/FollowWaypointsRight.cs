@@ -25,14 +25,13 @@ public class FollowWaypointsRight : MonoBehaviour
         spriteRenderer= GetComponent<SpriteRenderer>();
         boxCollider= GetComponent<BoxCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
     }
 
     // Update is called once per frame
     void Update()
     {
         float distance = Vector3.Distance(transform.position, player.position);
-
+        
         // Kiểm tra xem nhân vật player có ở trong bán kính phát hiện hay không
         if (distance <= detectionRadius)
         {

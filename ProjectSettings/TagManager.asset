@@ -9,6 +9,7 @@ TagManager:
   - PlayerBullet
   - Map
   - Skill
+  - Trap
   layers:
   - Default
   - TransparentFX

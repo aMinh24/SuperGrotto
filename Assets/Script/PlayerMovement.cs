@@ -70,7 +70,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing || animator.GetBool("Dead"))
         {
-            Debug.Log("dead");
             return;
         }
         if (Input.GetKeyDown(KeyCode.K) && canDash)
@@ -91,7 +90,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing||animator.GetBool("Dead"))
         {
-            Debug.Log("DeadM");
             return;
         }
         moving();

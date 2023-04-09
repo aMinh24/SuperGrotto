@@ -19,6 +19,7 @@ public class PlayerLives : MonoBehaviour
     public CinemachineCollisionImpulseSource cinemachineImpulseSource;
     [SerializeField]
     private CinemachineVirtualCamera cinemachine;
+    
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -42,6 +43,7 @@ public class PlayerLives : MonoBehaviour
             {
                 Vector2 pushDirection = (enemyRigidbody.transform.position - transform.position).normalized; // Tính hướng đẩy từ nhân vật tới kẻ địch
                 enemyRigidbody.AddForce(pushDirection * pushForce, ForceMode2D.Impulse); // Thêm lực đẩy vào kẻ địch
+                
             }
             Invoke("rebind", 0.3f);
         }
@@ -73,5 +75,6 @@ public class PlayerLives : MonoBehaviour
         yield return new WaitForSeconds(1f);
         Time.timeScale = 1f;
         Destroy(this, 2f);
-    }    
+    }
+   
 }

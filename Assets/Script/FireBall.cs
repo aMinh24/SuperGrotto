@@ -18,4 +18,11 @@ public class FireBall : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, Waypoints[1].transform.position, (movingSpeed) * Time.deltaTime);
 
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }    
+    }
 }

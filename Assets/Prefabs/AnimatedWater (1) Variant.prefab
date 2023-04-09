@@ -9,7 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1989882034086704, guid: 277db30f27df7471d9c1edddd00dced6, type: 3}
       propertyPath: m_Name
-      value: AnimatedWater (1)
+      value: AnimatedWater (1) Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1989882034086704, guid: 277db30f27df7471d9c1edddd00dced6, type: 3}
+      propertyPath: m_TagString
+      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 4866197767079944, guid: 277db30f27df7471d9c1edddd00dced6, type: 3}
       propertyPath: m_RootOrder
