@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (movementState == MovementState.Idle && Time.time >= cooldownSkill && Input.GetKeyDown(comboKeys[currentKey]) && !isSkilling)
         {
-            comboTime = Time.time + 2f;
+            comboTime = Time.time + 1f;
             isSkilling = true;
             if (currentKey == 0) currentKey += 1;
         }
@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
                     Invoke("SkillAnimation", 0.3f);
                     currentKey = 0;
                     isSkilling = false;
-                    cooldownSkill = Time.time + 1f ;
+                    cooldownSkill = Time.time + 5f;
                     Boom = true;
                 }
             }

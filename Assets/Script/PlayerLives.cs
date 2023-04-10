@@ -52,7 +52,7 @@ public class PlayerLives : MonoBehaviour
             }
             Invoke("rebind", 0.3f);
         }
-        else if ((coll.CompareTag("Bullet"))&& animator.GetBool("Dead"))
+        else if ((coll.CompareTag("Bullet"))&& !animator.GetBool("Dead"))
         {
             lives--;
             
@@ -66,7 +66,10 @@ public class PlayerLives : MonoBehaviour
             animator.SetTrigger("Hurt");
             Invoke("rebind", 0.3f);
         }
-        
+        if (coll.CompareTag("Trap")&&!animator.GetBool("Dead"))
+        {
+            StartCoroutine(Die());
+        }    
     }
     
     private void rebind()
