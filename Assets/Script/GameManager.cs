@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : BaseManager <GameManager>
 {
     private bool isPlaying = false;
     public bool IsPlaying => isPlaying;
@@ -36,7 +36,12 @@ public class GameManager : MonoBehaviour
         EditorApplication.isPlaying = false;
 #endif
         Application.Quit();
-    }    
+    }
+
+    public void Replay()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
