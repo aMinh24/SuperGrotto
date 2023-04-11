@@ -15664,8 +15664,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrackedObjectOffset: {x: 4, y: 1, z: 0}
-  m_LookaheadTime: 0
-  m_LookaheadSmoothing: 0
+  m_LookaheadTime: 0.3
+  m_LookaheadSmoothing: 5
   m_LookaheadIgnoreY: 0
   m_XDamping: 1
   m_YDamping: 1
@@ -15678,7 +15678,7 @@ MonoBehaviour:
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 0.8
+  m_SoftZoneWidth: 2
   m_SoftZoneHeight: 0.8
   m_BiasX: 0
   m_BiasY: 0
@@ -17208,6 +17208,14 @@ PrefabInstance:
     - target: {fileID: 8409716345521808028, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984437777207190554, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5219083
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984437777207190554, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.058860064
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}

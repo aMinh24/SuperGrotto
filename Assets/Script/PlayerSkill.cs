@@ -35,7 +35,7 @@ public class PlayerSkill : MonoBehaviour
         circleCollider = GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("Map"))
