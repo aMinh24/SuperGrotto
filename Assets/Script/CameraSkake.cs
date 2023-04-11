@@ -9,7 +9,7 @@ public class CameraSkake : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
+            //cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
         }    
     }
 }

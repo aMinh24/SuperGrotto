@@ -43,7 +43,9 @@ public class PlayerLives : MonoBehaviour
             Debug.Log("no");
             animator.SetTrigger("Hurt");
             Rigidbody2D enemyRigidbody = coll.GetComponent<Rigidbody2D>(); // Lấy Rigidbody của đối tượng kẻ địch
+            cinemachineImpulseSource.enabled = true;
             cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
+            Debug.Log("mons");
             if (enemyRigidbody != null) // Kiểm tra nếu đối tượng kẻ địch có Rigidbody
             {
                 Vector2 pushDirection = (enemyRigidbody.transform.position - transform.position).normalized; // Tính hướng đẩy từ nhân vật tới kẻ địch
@@ -61,7 +63,7 @@ public class PlayerLives : MonoBehaviour
                 StartCoroutine(Die());
                 return;
             }
-            
+           cinemachineImpulseSource.enabled=true;
             cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
             animator.SetTrigger("Hurt");
             Invoke("rebind", 0.3f);
@@ -71,7 +73,13 @@ public class PlayerLives : MonoBehaviour
             StartCoroutine(Die());
         }    
     }
-    
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster")||collision.CompareTag("Bullet"))
+        {
+            cinemachineImpulseSource.enabled = false;
+        }
+    }
     private void rebind()
     {
         animator.Rebind();

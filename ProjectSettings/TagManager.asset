@@ -10,6 +10,11 @@ TagManager:
   - Map
   - Skill
   - Trap
+  - Boots
+  - Helmet
+  - Energy
+  - Heart
+  - Saphire
   layers:
   - Default
   - TransparentFX

@@ -448,11 +448,11 @@ GameObject:
   - component: {fileID: 106077828}
   m_Layer: 0
   m_Name: heart-item
-  m_TagString: Untagged
+  m_TagString: Heart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &106077827
 Transform:
   m_ObjectHideFlags: 0
@@ -2918,11 +2918,11 @@ GameObject:
   - component: {fileID: 884005363}
   m_Layer: 0
   m_Name: zaphire1
-  m_TagString: Untagged
+  m_TagString: Saphire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &884005362
 Transform:
   m_ObjectHideFlags: 0
@@ -3217,7 +3217,7 @@ GameObject:
   - component: {fileID: 921011690}
   m_Layer: 0
   m_Name: boots-item
-  m_TagString: Untagged
+  m_TagString: Boots
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5244,11 +5244,11 @@ GameObject:
   - component: {fileID: 1250831150}
   m_Layer: 0
   m_Name: energy-tank
-  m_TagString: Untagged
+  m_TagString: Energy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1250831149
 Transform:
   m_ObjectHideFlags: 0
@@ -6240,10 +6240,28 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 1
-  m_IgnoreTag: 
+  m_IgnoreTag: Player
   m_UseImpactDirection: 0
   m_ScaleImpactWithMass: 0
   m_ScaleImpactWithSpeed: 0
+--- !u!114 &1461010344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461010341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9f495c61a99af44ad963c73b3e0acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - Boots
+  - Helmet
+  - Energy
+  - Heart
+  - Saphire
 --- !u!114 &1461010347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15254,11 +15272,11 @@ GameObject:
   - component: {fileID: 1837017281}
   m_Layer: 0
   m_Name: helmet-item
-  m_TagString: Untagged
+  m_TagString: Helmet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1837017280
 Transform:
   m_ObjectHideFlags: 0
@@ -15664,8 +15682,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrackedObjectOffset: {x: 4, y: 1, z: 0}
-  m_LookaheadTime: 0.3
-  m_LookaheadSmoothing: 5
+  m_LookaheadTime: 0.5
+  m_LookaheadSmoothing: 10
   m_LookaheadIgnoreY: 0
   m_XDamping: 1
   m_YDamping: 1
@@ -16473,7 +16491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5911473114119318301, guid: 89a67da34bcb1c14b875b87c7d435aff, type: 3}
       propertyPath: m_TagString
-      value: Monster
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5911473114119318302, guid: 89a67da34bcb1c14b875b87c7d435aff, type: 3}
       propertyPath: player
@@ -17196,6 +17214,18 @@ PrefabInstance:
     - target: {fileID: 8409716345521808026, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409716345521808027, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409716345521808027, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409716345521808027, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8409716345521808027, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
       propertyPath: m_SortingOrder

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ItemCollector : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public string[] items = {"Boots","Helmet","Energy","Heart","Saphire"};
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach (var item in items)
+        {
+            if (collision.CompareTag(item))
+            {
+                Destroy(collision.gameObject);
+            }
+        }
     }
 }

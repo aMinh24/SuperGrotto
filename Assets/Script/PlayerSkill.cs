@@ -40,11 +40,12 @@ public class PlayerSkill : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("Map"))
         {
-            
             Destroy(gameObject);
             GameObject BoomSkill;
             BoomSkill = Instantiate(Boom, transform.position, Quaternion.identity);
+            cinemachineImpulseSource.enabled = true;
             cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
+            Debug.Log(collision.tag);
             Destroy(BoomSkill,0.7f);
         }
     }
