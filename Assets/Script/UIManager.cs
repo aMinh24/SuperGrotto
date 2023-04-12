@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIManager : BaseManager <UIManager>
 {
     [SerializeField]
     private MenuPanel menuPanel;
@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public LosePanel LosePanel =>LosePanel;
     private void Start()
     {
+        
         ActiveMenuPanel(true);
         ActiveLosePanel(false);
     }

@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isShooting = false;
     private bool isRunning = false;
     private bool isOnAir = false;
-    private bool isWaiting = false;
     private float shootingTime = 0;
     private float cooldownSkill = 0;
     private float comboTime = 0;

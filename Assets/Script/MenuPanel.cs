@@ -6,6 +6,11 @@ public class MenuPanel : MonoBehaviour
 {
     public void OnStartButtonClick()
     {
-        GameManager.Instance.ChangeScene()
+        UIManager.Instance.ActiveMenuPanel(false);
+        GameManager.Instance.ChangeScene("Level1");
+    }
+    public void OnExitButtonClick()
+    {
+        GameManager.Instance.EndGame();
     }
 }

@@ -6,6 +6,15 @@ public class LosePanel : MonoBehaviour
 {
     public void OnReplayButton()
     {
+        Time.timeScale = 1.0f;
+        UIManager.Instance.ActiveLosePanel(false);
         GameManager.Instance.Replay();
+    }
+    public void OnBackToMenuButton()
+    {
+        Time.timeScale = 1.0f;
+        UIManager.Instance.ActiveMenuPanel(true);
+        UIManager.Instance.ActiveLosePanel(false);
+        GameManager.Instance.RestartGame();
     }
 }
