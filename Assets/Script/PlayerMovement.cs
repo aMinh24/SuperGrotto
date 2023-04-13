@@ -52,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     private KeyCode[] comboKeys = { KeyCode.S, KeyCode.D, KeyCode.J };
     private int currentKey = 0;
 
+    public bool isClimbing;
+    public bool canClimb;
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -76,13 +78,23 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(Dash());
         }
         if (!isSkilling)
+        {
             dirX = Input.GetAxisRaw("Horizontal");
-        if (dirX != 0) isRunning = true;
+            if (canClimb)
+            {
+                dirY = Input.GetAxisRaw("Vertical");
+            }
+        }
+        if (dirY!=0&&canClimb) isClimbing = true;
+        else isClimbing=false;
+        if (dirX != 0 &&canClimb) isRunning = true;
         else isRunning = false;
         Boom = false;
         shooting();
         jumping();
-
+        if (dirY <-0.1f&&IsGround())
+        { dirY = 0; }
+        Debug.Log(dirY);
         UpdateAnimation();
     }
     private void FixedUpdate()
@@ -96,7 +108,22 @@ public class PlayerMovement : MonoBehaviour
     private void moving()
     {
         if (rigidbody.bodyType != RigidbodyType2D.Static)
+        {
             rigidbody.velocity = new Vector2(dirX * playerSpeed, rigidbody.velocity.y);
+        }
+        if (canClimb)
+        {
+            rigidbody.isKinematic = true;
+            rigidbody.velocity = new Vector2(dirX * playerSpeed, dirY*playerSpeed);
+        }
+        else if (!isClimbing&&!canClimb)
+        {            
+            rigidbody.isKinematic= false;
+        }
+        if (!isClimbing&&canClimb&&!IsGround()&&!isRunning)
+        {
+            rigidbody.velocity = Vector2.zero;
+        }
     }
     private void jumping()
     {
@@ -176,6 +203,14 @@ public class PlayerMovement : MonoBehaviour
     }
     private void UpdateAnimation()
     {
+        if (canClimb&&!isClimbing)
+        {
+            animator.SetTrigger("CanClimb");
+        }
+        if (canClimb&&isClimbing&&!IsGround())
+        {
+            animator.SetBool("Climb", true);
+        }
         if (animator.GetBool("Dead")) return;
         if (dirX > 0f)
         {
@@ -190,15 +225,18 @@ public class PlayerMovement : MonoBehaviour
             if (IsGround() && !isShooting)
                 movementState = MovementState.Running;
         }
-        else movementState = MovementState.Idle;
+        else if (!isClimbing)
+        {
+            movementState = MovementState.Idle;
+        }
 
         isOnAir = false;
-        if (rigidbody.velocity.y > 0.1f)
+        if (rigidbody.velocity.y > 0.1f&&!isClimbing)
         {
             isOnAir = true;
             movementState = MovementState.Jumping;
         }
-        else if (rigidbody.velocity.y < -0.1f)
+        else if (rigidbody.velocity.y < -0.3f && !isClimbing&&!IsGround())
         {
             isOnAir = true;
             movementState = MovementState.Falling;
@@ -224,6 +262,7 @@ public class PlayerMovement : MonoBehaviour
             movementState = MovementState.Duck;
             Boom = false;
         }
+        
         animator.SetInteger("State", (int)movementState);
     }
     private bool IsGround()
