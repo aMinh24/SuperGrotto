@@ -4,16 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Door : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Time.timeScale = 0f;
+            UIManager.Instance.ActiveVictoryPanel(true);
+        }
     }
 
 }
