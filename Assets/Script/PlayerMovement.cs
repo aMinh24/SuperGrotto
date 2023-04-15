@@ -94,7 +94,6 @@ public class PlayerMovement : MonoBehaviour
         jumping();
         if (dirY <-0.1f&&IsGround())
         { dirY = 0; }
-        Debug.Log(dirY);
         UpdateAnimation();
     }
     private void FixedUpdate()
@@ -203,6 +202,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void UpdateAnimation()
     {
+        if (animator.GetBool("Dead")) return;
         if (canClimb&&!isClimbing)
         {
             animator.SetTrigger("CanClimb");
@@ -211,7 +211,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("Climb", true);
         }
-        if (animator.GetBool("Dead")) return;
+        
         if (dirX > 0f)
         {
             spriteRenderer.flipX = false;

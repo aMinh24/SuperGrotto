@@ -34,7 +34,6 @@ public class PlayerLives : MonoBehaviour
             if (Time.time < time) return;
             lives--;
             time = Time.time+0.3f;
-            Debug.Log("mon " + lives);
             if (lives == 0)
             {
                 StartCoroutine(Die());
@@ -61,8 +60,6 @@ public class PlayerLives : MonoBehaviour
                 StartCoroutine(Die());
                 return;
             }
-           cinemachineImpulseSource.enabled=true;
-            cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
             animator.SetTrigger("Hurt");
             Invoke("rebind", 0.3f);
         }
@@ -73,7 +70,7 @@ public class PlayerLives : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Monster")||collision.CompareTag("Bullet"))
+        if (collision.CompareTag("Monster"))
         {
             cinemachineImpulseSource.enabled = false;
         }

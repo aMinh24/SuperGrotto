@@ -32,7 +32,6 @@ public class BatLives : MonoBehaviour
         
         if (collision.CompareTag("PlayerBullet"))
         {
-            Debug.Log("hit");
             Lives--;
             if (Lives == 0)
             {

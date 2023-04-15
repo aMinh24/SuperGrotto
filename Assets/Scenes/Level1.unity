@@ -709,6 +709,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 811926584}
     - target: {fileID: 962187720789307860, guid: 8055cdc758fbc8141b58336999dfa0f9, type: 3}
+      propertyPath: destroyTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 962187720789307860, guid: 8055cdc758fbc8141b58336999dfa0f9, type: 3}
       propertyPath: bulletPrefab
       value: 
       objectReference: {fileID: 1892950726716990845, guid: b25350bbdc9fbf848b6daa05dd80a95b, type: 3}
@@ -15944,6 +15948,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 80301538389019972, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 80301538389019978, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
       propertyPath: cinemachine
       value: 
@@ -16009,6 +16017,10 @@ PrefabInstance:
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 560548288}
+    - target: {fileID: 962187720789307860, guid: 8055cdc758fbc8141b58336999dfa0f9, type: 3}
+      propertyPath: destroyTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 962187720789307860, guid: 8055cdc758fbc8141b58336999dfa0f9, type: 3}
       propertyPath: bulletPrefab
       value: 

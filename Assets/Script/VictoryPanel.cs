@@ -7,14 +7,14 @@ public class VictoryPanel : MonoBehaviour
     public void OnReplayButton()
     {
         Time.timeScale = 1.0f;
-        UIManager.Instance.ActiveLosePanel(false);
+        UIManager.Instance.ActiveVictoryPanel(false);
         GameManager.Instance.Replay();
     }
     public void OnBackToMenuButton()
     {
         Time.timeScale = 1.0f;
         UIManager.Instance.ActiveMenuPanel(true);
-        UIManager.Instance.ActiveLosePanel(false);
+        UIManager.Instance.ActiveVictoryPanel(false);
         GameManager.Instance.RestartGame();
     }
     public void OnNextLevelButton()

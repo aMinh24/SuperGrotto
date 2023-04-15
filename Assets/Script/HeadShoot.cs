@@ -6,7 +6,9 @@ public class HeadShoot : MonoBehaviour
 {
     public GameObject bulletPrefab; // prefab của đạn
     public Transform firePoint; // vị trí bắn đạn
-
+    [SerializeField]
+    private float destroyTime;
+    [SerializeField]
     private float nextShootTime = 1.5f; // thời điểm bắn đạn tiếp theo
 
 
@@ -31,6 +33,6 @@ public class HeadShoot : MonoBehaviour
         // Thiết lập tốc độ di chuyển của đạn
 
         // Huỷ đối tượng đạn sau khi bay đến đích
-        Destroy(bullet, 2f); // Huỷ sau 5 giây nếu không va chạm gì
+        Destroy(bullet, destroyTime); // Huỷ sau 5 giây nếu không va chạm gì
     }
 }
