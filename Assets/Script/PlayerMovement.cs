@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isClimbing;
     public bool canClimb;
+    [SerializeField]
+    private CinemachineVirtualCamera virtualCamera;
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -95,6 +98,11 @@ public class PlayerMovement : MonoBehaviour
         if (dirY <-0.1f&&IsGround())
         { dirY = 0; }
         UpdateAnimation();
+        if (IsGround())
+        {
+            virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = 1;
+
+        }
     }
     private void FixedUpdate()
     {
@@ -209,18 +217,22 @@ public class PlayerMovement : MonoBehaviour
         }
         if (canClimb&&isClimbing&&!IsGround())
         {
+            virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = 3;
+
             animator.SetBool("Climb", true);
         }
         
         if (dirX > 0f)
         {
             spriteRenderer.flipX = false;
+            virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.x = 4;
             side = false;
             if (IsGround() && !isShooting) movementState = MovementState.Running;
         }
         else if (dirX < 0f)
         {
             spriteRenderer.flipX = true;
+            virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.x = -4;
             side = true;
             if (IsGround() && !isShooting)
                 movementState = MovementState.Running;
@@ -234,11 +246,15 @@ public class PlayerMovement : MonoBehaviour
         if (rigidbody.velocity.y > 0.1f&&!isClimbing)
         {
             isOnAir = true;
+            virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = 3;
+
             movementState = MovementState.Jumping;
         }
         else if (rigidbody.velocity.y < -0.3f && !isClimbing&&!IsGround())
         {
             isOnAir = true;
+            virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = -3;
+
             movementState = MovementState.Falling;
         }
 

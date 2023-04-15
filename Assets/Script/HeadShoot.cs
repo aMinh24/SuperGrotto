@@ -10,6 +10,8 @@ public class HeadShoot : MonoBehaviour
     private float destroyTime;
     [SerializeField]
     private float nextShootTime = 1.5f; // thời điểm bắn đạn tiếp theo
+    [SerializeField]
+    private float nextTime = 4;
 
 
     void Update()
@@ -20,8 +22,8 @@ public class HeadShoot : MonoBehaviour
             // Bắn đạn
             ShootBullet();
 
-            // Cập nhật thời điểm bắn đạn tiếp theo
-            nextShootTime = Time.time + 2f; // Chu kỳ 1 giây 1 lần
+            // Cập nhật thời điểm bắn đạn tiếp theo 
+            nextShootTime = Time.time + nextTime; // Chu kỳ 1 giây 1 lần
         }
     }
 
