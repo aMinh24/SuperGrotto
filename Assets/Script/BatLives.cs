@@ -42,7 +42,6 @@ public class BatLives : MonoBehaviour
         }
         if (collision.CompareTag("Skill"))
         {
-            Debug.Log("skill");
             Die();
         }
            

@@ -27,7 +27,6 @@ public class SkelekonLives : MonoBehaviour
         }
         if (collision.CompareTag("Skill"))
         {
-            Debug.Log("skill");
             Die();
         }
 

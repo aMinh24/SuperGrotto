@@ -13,11 +13,16 @@ public class UIManager : BaseManager <UIManager>
     [SerializeField]
     private VictoryPanel victoryPanel;
     public VictoryPanel VictoryPanel=>victoryPanel;
+
+    [SerializeField]
+    private GamePanel gamePanel;
+    public GamePanel GamePanel =>gamePanel;
     private void Start()
     {
         ActiveVictoryPanel(false);
         ActiveMenuPanel(true);
         ActiveLosePanel(false);
+        ActiveGamePanel(false);
     }
     public void ActiveVictoryPanel(bool active)
     {
@@ -31,4 +36,9 @@ public class UIManager : BaseManager <UIManager>
     {
         losePanel.gameObject.SetActive(active);
     }
+    public void ActiveGamePanel(bool active)
+    {
+        gamePanel.gameObject.SetActive(active);
+    }
 }
+

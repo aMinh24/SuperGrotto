@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 using Cinemachine;
+using static UnityEditor.ShaderData;
+
 public class PlayerLives : MonoBehaviour
 {
-    private int lives = 3;
-    [SerializeField]
+    private int lives = 6;
+    public int Lives => lives;
+    public int setLive
+    { set { lives = value; } }
+        [SerializeField]
     private float pushForce = 10f;
     [SerializeField]
     private Animator animator;
@@ -20,6 +25,8 @@ public class PlayerLives : MonoBehaviour
     [SerializeField]
     private CinemachineVirtualCamera cinemachine;
     private float time;
+
+    public bool hasShield = false;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -32,6 +39,12 @@ public class PlayerLives : MonoBehaviour
         if (coll.gameObject.CompareTag("Monster")&& !animator.GetBool("Dead"))
         {
             if (Time.time < time) return;
+            if (hasShield)
+            {
+                hasShield = false;
+                time = Time.time+0.3f;
+                return;
+            }
             lives--;
             time = Time.time+0.3f;
             if (lives == 0)
@@ -53,6 +66,13 @@ public class PlayerLives : MonoBehaviour
         }
         else if ((coll.CompareTag("Bullet"))&& !animator.GetBool("Dead"))
         {
+            if (hasShield)
+            {
+                hasShield = false;
+                time = Time.time + 0.3f;
+                
+                return;
+            }
             lives--;
             
             if (lives == 0)

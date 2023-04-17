@@ -1,7 +1,10 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Animator animator;
     [SerializeField]
-    private float playerSpeed;
+    private float playerSpeed = 6;
     [SerializeField]
     private float jumpHeight;
     [SerializeField]
@@ -57,6 +60,11 @@ public class PlayerMovement : MonoBehaviour
     public bool canClimb;
     [SerializeField]
     private CinemachineVirtualCamera virtualCamera;
+
+    public bool hasBoots = false;
+    public bool bootPanel = false;
+    private float timeBoots;
+    private float initSpeed;
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -67,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Start()
     {
+        initSpeed = playerSpeed;
         trailRenderer.emitting = false;
     }
     // Update is called once per frame
@@ -88,20 +97,33 @@ public class PlayerMovement : MonoBehaviour
                 dirY = Input.GetAxisRaw("Vertical");
             }
         }
-        if (dirY!=0&&canClimb) isClimbing = true;
-        else isClimbing=false;
-        if (dirX != 0 &&canClimb) isRunning = true;
+        if (dirY != 0 && canClimb) isClimbing = true;
+        else isClimbing = false;
+        if (dirX != 0 && canClimb) isRunning = true;
         else isRunning = false;
         Boom = false;
         shooting();
         jumping();
-        if (dirY <-0.1f&&IsGround())
+        if (dirY < -0.1f && IsGround())
         { dirY = 0; }
         UpdateAnimation();
         if (IsGround())
         {
             virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = 1;
 
+        }
+        if (hasBoots)
+        {
+            bootPanel = true;
+            hasBoots = false;
+            timeBoots = Time.time+30f;
+            initSpeed = playerSpeed;
+            playerSpeed = initSpeed*1.4f;
+        }
+        if (Time.time > timeBoots)
+        {
+            bootPanel = false;
+            playerSpeed = initSpeed;
         }
     }
     private void FixedUpdate()
@@ -116,12 +138,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rigidbody.bodyType != RigidbodyType2D.Static)
         {
-            rigidbody.velocity = new Vector2(dirX * playerSpeed, rigidbody.velocity.y);
+            rigidbody.velocity = new UnityEngine.Vector2(dirX * playerSpeed, rigidbody.velocity.y);
         }
         if (canClimb)
         {
             rigidbody.isKinematic = true;
-            rigidbody.velocity = new Vector2(dirX * playerSpeed, dirY*playerSpeed);
+            rigidbody.velocity = new UnityEngine.Vector2(dirX * playerSpeed, dirY*playerSpeed);
         }
         else if (!isClimbing&&!canClimb)
         {            
@@ -129,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (!isClimbing&&canClimb&&!IsGround()&&!isRunning)
         {
-            rigidbody.velocity = Vector2.zero;
+            rigidbody.velocity = UnityEngine.Vector2.zero;
         }
     }
     private void jumping()
@@ -307,6 +329,8 @@ public class PlayerMovement : MonoBehaviour
         trailRenderer.emitting = false;
         rigidbody.gravityScale = originalGravity;
         isDashing = false;
+        if (animator.GetBool("Dead"))
+            yield break;
         animator.Rebind();
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
