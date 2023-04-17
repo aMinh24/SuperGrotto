@@ -5974,6 +5974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9443326207b05c644bce872ab4bccf8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panel: {fileID: 257583502}
 --- !u!61 &447925725
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34800,7 +34801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1705894232631451174, guid: f2f7d4dfadc5e5c4b97b458c5c75ffcb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 4.027
       objectReference: {fileID: 0}
     - target: {fileID: 1705894232631451174, guid: f2f7d4dfadc5e5c4b97b458c5c75ffcb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -68033,6 +68034,14 @@ PrefabInstance:
     - target: {fileID: 9220672515923710453, guid: c0e86710764c1d94c96f7389d8f91a6b, type: 3}
       propertyPath: m_Name
       value: skeleton-idle1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220672515923710455, guid: c0e86710764c1d94c96f7389d8f91a6b, type: 3}
+      propertyPath: m_Size.x
+      value: 0.6727543
+      objectReference: {fileID: 0}
+    - target: {fileID: 9220672515923710455, guid: c0e86710764c1d94c96f7389d8f91a6b, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.06536007
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0e86710764c1d94c96f7389d8f91a6b, type: 3}

@@ -28,6 +28,8 @@ public class GameManager : BaseManager <GameManager>
     }
     public void RestartGame()
     {
+        Time.timeScale = 1f;
+        isPlaying = false;
         ChangeScene("Menu");
     }
     public void EndGame()
@@ -40,6 +42,8 @@ public class GameManager : BaseManager <GameManager>
 
     public void Replay()
     {
+        isPlaying = true;
+        Time.timeScale=1.0f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void ChangeScene(string sceneName)

@@ -17,12 +17,29 @@ public class UIManager : BaseManager <UIManager>
     [SerializeField]
     private GamePanel gamePanel;
     public GamePanel GamePanel =>gamePanel;
+    [SerializeField]
+    private PausePanel pausePanel;
+    public PausePanel PausePanel =>pausePanel;
     private void Start()
     {
         ActiveVictoryPanel(false);
         ActiveMenuPanel(true);
         ActiveLosePanel(false);
         ActiveGamePanel(false);
+        ActivePausePanel(false);
+    }
+    private void Update()
+    {
+        Debug.Log(GameManager.Instance.IsPlaying);
+        if (GameManager.Instance.IsPlaying)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("pause");
+                GameManager.Instance.PauseGame();
+                ActivePausePanel(true);
+            }
+        }
     }
     public void ActiveVictoryPanel(bool active)
     {
@@ -39,6 +56,10 @@ public class UIManager : BaseManager <UIManager>
     public void ActiveGamePanel(bool active)
     {
         gamePanel.gameObject.SetActive(active);
+    }
+    public void ActivePausePanel(bool active)
+    {
+        pausePanel.gameObject.SetActive(active);
     }
 }
 

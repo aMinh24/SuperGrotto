@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Door : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject panel;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Time.timeScale = 0f;
+            GameManager.Instance.PauseGame();
             UIManager.Instance.ActiveVictoryPanel(true);
         }
     }
