@@ -30,7 +30,6 @@ public class UIManager : BaseManager <UIManager>
     }
     private void Update()
     {
-        Debug.Log(GameManager.Instance.IsPlaying);
         if (GameManager.Instance.IsPlaying)
         {
             if (Input.GetKeyDown(KeyCode.Escape))

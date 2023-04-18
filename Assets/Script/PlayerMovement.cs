@@ -114,17 +114,12 @@ public class PlayerMovement : MonoBehaviour
         }
         if (hasBoots)
         {
-            bootPanel = true;
             hasBoots = false;
-            timeBoots = Time.time+30f;
-            initSpeed = playerSpeed;
-            playerSpeed = initSpeed*1.4f;
+            timeBoots = Time.time+30f;            
         }
         if (Time.time > timeBoots)
         {
-            bootPanel = false;
-            playerSpeed = initSpeed;
-        }
+            bootPanel = false;        }
     }
     private void FixedUpdate()
     {
@@ -334,5 +329,13 @@ public class PlayerMovement : MonoBehaviour
         animator.Rebind();
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+    public void ChangeSpeed()
+    {
+        playerSpeed = initSpeed * 1.4f;
+    }
+    public void ResetSpeed()
+    {
+        playerSpeed = initSpeed;
     }
 }

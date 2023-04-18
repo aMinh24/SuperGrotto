@@ -6,23 +6,19 @@ public class ItemCollector : MonoBehaviour
 {
     public string[] items = {"Boots","Helmet","Energy","Heart","Saphire"};
     [SerializeField]
-    private GamePanel gamePanel;
-    private void Update()
-    {
-        gamePanel.ActiveBoots(gameObject.GetComponent<PlayerMovement>().bootPanel);
-        gamePanel.ActiveHelmet(gameObject.GetComponent<PlayerLives>().hasShield);
-    }
+    //private GamePanel gamePanel;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag.Equals("Boots"))
         {
             gameObject.GetComponent<PlayerMovement>().hasBoots = true;
-            gamePanel.ActiveBoots(true);
+            UIManager.Instance.GamePanel.ActiveBoots(true);
         }
         if (collision.tag.Equals("Helmet"))
         {
             gameObject.GetComponent<PlayerLives>().hasShield = true;
-            gamePanel.ActiveHelmet(true);
+            UIManager.Instance.GamePanel.ActiveHelmet(true);
         }
         if (collision.tag.Equals("Heart"))
         {

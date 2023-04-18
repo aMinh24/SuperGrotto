@@ -42,6 +42,7 @@ public class PlayerLives : MonoBehaviour
             if (hasShield)
             {
                 hasShield = false;
+                UIManager.Instance.GamePanel.ActiveHelmet(false);
                 time = Time.time+0.3f;
                 return;
             }
@@ -69,6 +70,7 @@ public class PlayerLives : MonoBehaviour
             if (hasShield)
             {
                 hasShield = false;
+                UIManager.Instance.GamePanel.ActiveHelmet(false);
                 time = Time.time + 0.3f;
                 
                 return;
