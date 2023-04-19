@@ -2,7 +2,9 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading;
 using UnityEngine;
+using static UnityEditor.Progress;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 
@@ -77,10 +79,17 @@ public class PlayerMovement : MonoBehaviour
     {
         initSpeed = playerSpeed;
         trailRenderer.emitting = false;
+        ItemCollector.updateBootsSpeed += ChangeSpeed;
     }
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(playerSpeed);
+        if (Time.time > timeBoots)
+        {
+            UIManager.Instance.GamePanel.ActiveBoots(false);
+            playerSpeed = initSpeed;
+        }
         if (isDashing || animator.GetBool("Dead"))
         {
             return;
@@ -106,20 +115,14 @@ public class PlayerMovement : MonoBehaviour
         jumping();
         if (dirY < -0.1f && IsGround())
         { dirY = 0; }
+
         UpdateAnimation();
         if (IsGround())
         {
             virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = 1;
 
         }
-        if (hasBoots)
-        {
-            hasBoots = false;
-            timeBoots = Time.time+30f;            
-        }
-        if (Time.time > timeBoots)
-        {
-            bootPanel = false;        }
+        
     }
     private void FixedUpdate()
     {
@@ -332,7 +335,9 @@ public class PlayerMovement : MonoBehaviour
     }
     public void ChangeSpeed()
     {
-        playerSpeed = initSpeed * 1.4f;
+        playerSpeed = initSpeed * 1.5f;
+        timeBoots = Time.time+15f;
+        
     }
     public void ResetSpeed()
     {

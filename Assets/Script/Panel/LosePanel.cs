@@ -13,6 +13,7 @@ public class LosePanel : MonoBehaviour
     public void OnBackToMenuButton()
     {
         Time.timeScale = 1.0f;
+        UIManager.Instance.ActiveGamePanel(false);
         UIManager.Instance.ActiveMenuPanel(true);
         UIManager.Instance.ActiveLosePanel(false);
         GameManager.Instance.RestartGame();

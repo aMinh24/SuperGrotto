@@ -8,27 +8,38 @@ public class Health : MonoBehaviour
     [SerializeField]
     private Animator animator;
     [SerializeField]
-    private PlayerLives playerLives;
+    //private PlayerLives playerLives;
     private bool isLoaded = false;
     private void Start()
     {
         animator = GetComponent<Animator>();
-        Invoke("DelayLoad", 0.3f);
+        //Invoke("DelayLoad", 0.3f);
     }
-
-
-    private void Update()
+    private void OnEnable()
     {
-        if(isLoaded)
-        {
-            if (playerLives.Lives == 6) animator.Rebind();
-            animator.SetInteger("Health", playerLives.Lives);
-        }        
+        PlayerLives.updateHealthDelegate += UpdateHealth;
     }
-
-    void DelayLoad()
+    private void OnDisable()
     {
-        playerLives = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLives>();
-        isLoaded = true;
+        PlayerLives.updateHealthDelegate -= UpdateHealth;
     }
+    private void UpdateHealth(int value)
+    {
+        if (value == 6) animator.Rebind();
+        animator.SetInteger("Health", value);
+    }
+    //private void Update()
+    //{
+    //    if(isLoaded)
+    //    {
+    //        if (playerLives.Lives == 6) animator.Rebind();
+    //        animator.SetInteger("Health", playerLives.Lives);
+    //    }        
+    //}
+
+    //void DelayLoad()
+    //{
+    //    playerLives = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLives>();
+    //    isLoaded = true;
+    //}
 }

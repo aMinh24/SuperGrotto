@@ -27,6 +27,9 @@ public class PlayerLives : MonoBehaviour
     private float time;
 
     public bool hasShield = false;
+
+    public delegate void UpdateHealth(int health);
+    public static UpdateHealth updateHealthDelegate;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -38,15 +41,25 @@ public class PlayerLives : MonoBehaviour
     {
         if (coll.gameObject.CompareTag("Monster")&& !animator.GetBool("Dead"))
         {
+            Rigidbody2D enemyRigidbody = coll.GetComponent<Rigidbody2D>(); // Lấy Rigidbody của đối tượng kẻ địch;
             if (Time.time < time) return;
             if (hasShield)
             {
                 hasShield = false;
                 UIManager.Instance.GamePanel.ActiveHelmet(false);
                 time = Time.time+0.3f;
+                cinemachineImpulseSource.enabled = true;
+                cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
+                if (enemyRigidbody != null) // Kiểm tra nếu đối tượng kẻ địch có Rigidbody
+                {
+                    Vector2 pushDirection = (enemyRigidbody.transform.position - transform.position).normalized; // Tính hướng đẩy từ nhân vật tới kẻ địch
+                    enemyRigidbody.AddForce(pushDirection * pushForce, ForceMode2D.Impulse); // Thêm lực đẩy vào kẻ địch
+
+                }
                 return;
             }
             lives--;
+            updateHealthDelegate(lives);           //event mất máu
             time = Time.time+0.3f;
             if (lives == 0)
             {
@@ -54,7 +67,6 @@ public class PlayerLives : MonoBehaviour
                 return;
             }
             animator.SetTrigger("Hurt");
-            Rigidbody2D enemyRigidbody = coll.GetComponent<Rigidbody2D>(); // Lấy Rigidbody của đối tượng kẻ địch
             cinemachineImpulseSource.enabled = true;
             cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
             if (enemyRigidbody != null) // Kiểm tra nếu đối tượng kẻ địch có Rigidbody
@@ -76,7 +88,7 @@ public class PlayerLives : MonoBehaviour
                 return;
             }
             lives--;
-            
+            updateHealthDelegate(lives);         //event
             if (lives == 0)
             {
                 StartCoroutine(Die());
