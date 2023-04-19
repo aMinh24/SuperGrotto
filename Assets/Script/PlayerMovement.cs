@@ -84,7 +84,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(playerSpeed);
         if (Time.time > timeBoots)
         {
             UIManager.Instance.GamePanel.ActiveBoots(false);
