@@ -5,6 +5,10 @@ using UnityEngine.PlayerLoop;
 
 public class ItemCollector : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject door;
+    private int energy;
+    public int Energy => energy;
     // khi qua màn mới lưu lại cái saphie
     public string[] items = {"Boots","Helmet","Energy","Heart","Saphire"};
     [SerializeField]
@@ -26,14 +30,23 @@ public class ItemCollector : MonoBehaviour
         }
         if (collision.tag.Equals("Heart"))
         {
+            if (gameObject.GetComponent<PlayerLives>().Lives == 6) return;
             gameObject.GetComponent<PlayerLives>().setLive = gameObject.GetComponent<PlayerLives>().Lives + 1;
             PlayerLives.updateHealthDelegate(gameObject.GetComponent<PlayerLives>().Lives);
         }
         if (collision.tag.Equals("Saphire"))
         {
-            DataManager.Instance.PlayerData.saphie += 1;
-            DataManager.Instance.SavePlayerData();
+            DataManager.Instance.updateSaphire();
             UIManager.Instance.GamePanel.loadData();
+        }
+        if (collision.tag.Equals("Energy"))
+        {
+            energy++;
+            door.GetComponent<Animator>().enabled = true;
+            if (UIManager.HasInstance)
+            {
+                UIManager.Instance.GamePanel.updateEnergy(energy);
+            }    
         }
         foreach (var item in items)
         {

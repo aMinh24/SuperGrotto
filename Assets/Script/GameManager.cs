@@ -30,7 +30,7 @@ public class GameManager : BaseManager <GameManager>
     {
         Time.timeScale = 1f;
         isPlaying = false;
-        ChangeScene("Menu");
+        ChangeScene(0);
     }
     public void EndGame()
     {
@@ -44,10 +44,15 @@ public class GameManager : BaseManager <GameManager>
     {
         isPlaying = true;
         Time.timeScale=1.0f;
+        DataManager.Instance.resetSaphire();
+        UIManager.Instance.GamePanel.updateEnergy(0);
+        UIManager.Instance.GamePanel.loadData();
+        UIManager.Instance.GamePanel.resetGamePanel();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PlayerLives.updateHealthDelegate(6);
     }
-    public void ChangeScene(string sceneName)
+    public void ChangeScene(int sceneIndex)
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneIndex);
     }
 }

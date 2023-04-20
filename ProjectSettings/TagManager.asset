@@ -15,6 +15,7 @@ TagManager:
   - Energy
   - Heart
   - Saphire
+  - Door
   layers:
   - Default
   - TransparentFX

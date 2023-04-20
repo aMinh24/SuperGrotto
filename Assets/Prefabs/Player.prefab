@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 80301538389019974}
   - component: {fileID: 80301538389019977}
   - component: {fileID: 80301538389019978}
+  - component: {fileID: 1380458881504418010}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -149,6 +150,11 @@ MonoBehaviour:
   - {fileID: 80301537005184938}
   - {fileID: 80301538532976549}
   trailRenderer: {fileID: 0}
+  isClimbing: 0
+  canClimb: 0
+  virtualCamera: {fileID: 0}
+  hasBoots: 0
+  bootPanel: 0
 --- !u!95 &3471890394712043907
 Animator:
   serializedVersion: 3
@@ -408,6 +414,19 @@ MonoBehaviour:
   boxCollider: {fileID: 0}
   cinemachineImpulseSource: {fileID: 80301538389019974}
   cinemachine: {fileID: 0}
+  hasShield: 0
+--- !u!114 &1380458881504418010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80301538389019972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2057d3e9399b77744974d39adabf29fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &80301538532976546
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class DataManager : BaseManager <DataManager>
 {
-    
+    private int saphire = 0;
+    public int Saphire => saphire;
     public DataSO PlayerData;
     private string dataFilePath;
     
     public void Init()
     {
-        dataFilePath = Application.persistentDataPath + "playerdata.jason";
+        dataFilePath = Application.dataPath + "/Data/playerdata.jason";
         Debug.Log(dataFilePath);
         this.LoadPlayerData();
     }
     private void WritePlayerDataSO()
     {
+        PlayerData.saphie+=saphire;
         string toJson = JsonUtility.ToJson(PlayerData);
         File.WriteAllText(dataFilePath, toJson);
     }
@@ -41,5 +43,13 @@ public class DataManager : BaseManager <DataManager>
     public void SavePlayerData()
     {
         WritePlayerDataSO();
+    }
+    public void updateSaphire()
+    {
+        saphire++;
+    }
+    public void resetSaphire()
+    {
+        saphire = 0;
     }
 }

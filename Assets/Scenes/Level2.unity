@@ -5922,27 +5922,13 @@ GameObject:
   - component: {fileID: 447925727}
   - component: {fileID: 447925726}
   - component: {fileID: 447925725}
-  - component: {fileID: 447925724}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &447925724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 447925723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9443326207b05c644bce872ab4bccf8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 0}
 --- !u!61 &447925725
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5977,7 +5963,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447925723}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7aa1055471e194b4f870134a3ac24940, type: 2}
   m_CullingMode: 0
@@ -33348,6 +33334,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80301538389019977, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 447925723}
     - target: {fileID: 80301538389019977, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
       propertyPath: gamePanel
       value: 

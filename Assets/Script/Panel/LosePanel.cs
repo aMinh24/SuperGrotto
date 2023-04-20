@@ -6,6 +6,7 @@ public class LosePanel : MonoBehaviour
 {
     public void OnReplayButton()
     {
+        UIManager.Instance.GamePanel.resetGamePanel();
         Time.timeScale = 1.0f;
         UIManager.Instance.ActiveLosePanel(false);
         GameManager.Instance.Replay();

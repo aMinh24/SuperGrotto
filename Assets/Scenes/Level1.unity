@@ -15387,7 +15387,7 @@ GameObject:
   - component: {fileID: 1969040650}
   - component: {fileID: 1969040649}
   m_Layer: 0
-  m_Name: "mapCollid\u1EBB"
+  m_Name: mapCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15423,8 +15423,8 @@ PolygonCollider2D:
       - {x: 31.91034, y: -10.279896}
       - {x: 41.479965, y: -9.703333}
       - {x: 107.03431, y: -9.666843}
-      - {x: 105.21912, y: 7.587984}
-      - {x: 66.268135, y: 7.881042}
+      - {x: 106.665504, y: 8.81185}
+      - {x: 72.05367, y: 9.438688}
       - {x: 66.07697, y: 9.758892}
       - {x: 3.4027224, y: 10.217756}
       - {x: 1.2184305, y: 8.836267}
@@ -15628,10 +15628,9 @@ GameObject:
   - component: {fileID: 2074136266}
   - component: {fileID: 2074136265}
   - component: {fileID: 2074136269}
-  - component: {fileID: 2074136268}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15644,7 +15643,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074136264}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7aa1055471e194b4f870134a3ac24940, type: 2}
   m_CullingMode: 0
@@ -15720,19 +15719,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2074136268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2074136264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9443326207b05c644bce872ab4bccf8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 0}
 --- !u!61 &2074136269
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15743,7 +15729,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.09065583, y: -0.33897454}
@@ -15930,7 +15916,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110467748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.34385872, y: 1.5726551, z: -10}
+  m_LocalPosition: {x: 3.0637474, y: 1.5726551, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -16089,6 +16075,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 80301538389019977, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: door
+      value: 
+      objectReference: {fileID: 2074136264}
     - target: {fileID: 80301538389019977, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
       propertyPath: gamePanel
       value: 

@@ -36,7 +36,7 @@ public class PlayerLives : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         boxCollider= GetComponent<BoxCollider2D>();
     }
-    
+
     private void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.CompareTag("Monster")&& !animator.GetBool("Dead"))

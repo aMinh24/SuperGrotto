@@ -11,11 +11,16 @@ public class GamePanel : MonoBehaviour
     private GameObject helmet;
     [SerializeField]
     private TextMeshProUGUI saphie;
+    [SerializeField]
+    private TextMeshProUGUI energy;
     private void Start()
     {
-        ActiveBoots(false);
-        ActiveHelmet(false);
         DataManager.Instance.Init();
+    }
+    private void OnEnable()
+    {
+        DataManager.Instance.resetSaphire();
+        resetGamePanel();
         loadData();
     }
     public void ActiveBoots(bool active)
@@ -26,9 +31,18 @@ public class GamePanel : MonoBehaviour
     {
         helmet.SetActive(active);
     }
+    public void resetGamePanel()
+    {
+        ActiveBoots(false);
+        ActiveHelmet(false);
+
+    }
     public void loadData()
     {
-        saphie.SetText(DataManager.Instance.PlayerData.saphie.ToString());
-        DataManager.Instance.SavePlayerData();
+        saphie.SetText(DataManager.Instance.Saphire.ToString());
     }    
+    public void updateEnergy(int count)
+    {
+        energy.SetText(count.ToString());
+    }
 }

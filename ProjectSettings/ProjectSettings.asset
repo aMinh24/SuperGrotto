@@ -154,6 +154,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.Minh.SuperGrotto
     Standalone: com.Minh.SuperGrotto
   buildNumber:
     Standalone: 0

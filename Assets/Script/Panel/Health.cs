@@ -9,7 +9,6 @@ public class Health : MonoBehaviour
     private Animator animator;
     [SerializeField]
     //private PlayerLives playerLives;
-    private bool isLoaded = false;
     private void Start()
     {
         animator = GetComponent<Animator>();
