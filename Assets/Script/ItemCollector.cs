@@ -1,10 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 public class ItemCollector : MonoBehaviour
 {
+    // khi qua màn mới lưu lại cái saphie
     public string[] items = {"Boots","Helmet","Energy","Heart","Saphire"};
     [SerializeField]
     //private GamePanel gamePanel;
@@ -27,6 +28,12 @@ public class ItemCollector : MonoBehaviour
         {
             gameObject.GetComponent<PlayerLives>().setLive = gameObject.GetComponent<PlayerLives>().Lives + 1;
             PlayerLives.updateHealthDelegate(gameObject.GetComponent<PlayerLives>().Lives);
+        }
+        if (collision.tag.Equals("Saphire"))
+        {
+            DataManager.Instance.PlayerData.saphie += 1;
+            DataManager.Instance.SavePlayerData();
+            UIManager.Instance.GamePanel.loadData();
         }
         foreach (var item in items)
         {
