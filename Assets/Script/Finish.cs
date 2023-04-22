@@ -8,6 +8,10 @@ public class Finish : MonoBehaviour
     {
         if (collision.tag.Equals("Door"))
         {
+            if (AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE(Audio.SE_FINISH);
+            }
             if (gameObject.GetComponent<ItemCollector>().Energy == 0) return;
             UIManager.Instance.ActiveVictoryPanel(true);
             DataManager.Instance.SavePlayerData();

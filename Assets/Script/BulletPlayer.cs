@@ -41,7 +41,10 @@ public class BulletPlayer : MonoBehaviour
             animator.SetInteger("State", 1);
             rb.bodyType = RigidbodyType2D.Static;
             Invoke("DesObj", 0.4f);
-
+            if (AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE(Audio.SE_SHOOTHIT);
+            }
         }
     }
     

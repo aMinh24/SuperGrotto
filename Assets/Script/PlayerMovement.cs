@@ -165,6 +165,10 @@ public class PlayerMovement : MonoBehaviour
                 isNotDoubleJump = !isNotDoubleJump;
                 animator.SetBool("doubleJump", !isNotDoubleJump);
                 isShooting = false;
+                if (AudioManager.HasInstance)
+                {
+                    AudioManager.Instance.PlaySE(Audio.SE_JUMP);
+                }
             }
 
         }
@@ -237,7 +241,10 @@ public class PlayerMovement : MonoBehaviour
         if (canClimb&&isClimbing&&!IsGround())
         {
             virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = 3;
-
+            if (AudioManager.HasInstance)
+            {
+                //AudioManager.Instance.PlaySE(Audio.SE_WALK);
+            }    
             animator.SetBool("Climb", true);
         }
         
@@ -246,15 +253,30 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = false;
             virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.x = 4;
             side = false;
-            if (IsGround() && !isShooting) movementState = MovementState.Running;
+            if (IsGround() && !isShooting)
+            {
+                movementState = MovementState.Running;
+                if (AudioManager.HasInstance)
+                {
+                    //AudioManager.Instance.PlaySE(Audio.SE_WALK);
+                }
+            }
         }
         else if (dirX < 0f)
         {
             spriteRenderer.flipX = true;
             virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.x = -4;
             side = true;
-            if (IsGround() && !isShooting)
+            if (IsGround() && !isShooting) 
+            {
                 movementState = MovementState.Running;
+                if (AudioManager.HasInstance)
+                {
+                    //AudioManager.Instance.PlaySE(Audio.SE_WALK);
+                }
+            }
+
+
         }
         else if (!isClimbing)
         {
@@ -268,6 +290,7 @@ public class PlayerMovement : MonoBehaviour
             virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = 3;
 
             movementState = MovementState.Jumping;
+            
         }
         else if (rigidbody.velocity.y < -0.3f && !isClimbing&&!IsGround())
         {
@@ -282,12 +305,19 @@ public class PlayerMovement : MonoBehaviour
         {
             //Invoke("ShootAnimation", 0.2f);
             movementState = MovementState.Shoot;
+            if (AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE(Audio.SE_SHOOT);
+            }
             isShooting = false;
         }
         if (isShooting && isRunning)
         {
             Debug.Log("run shoot");
-
+            if (AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE(Audio.SE_SHOOT);
+            }
             movementState = MovementState.RunningShoot;
 
             //isShooting = false;
@@ -295,10 +325,21 @@ public class PlayerMovement : MonoBehaviour
         if (Boom)
         {
             movementState = MovementState.Duck;
+            if (AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE(Audio.SE_SKILL);
+            }
             Boom = false;
         }
         
         animator.SetInteger("State", (int)movementState);
+    }
+    private void PlayWalkSound()
+    {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(Audio.SE_WALK);
+        }
     }
     private bool IsGround()
     {
@@ -306,6 +347,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private IEnumerator Dash()
     {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(Audio.SE_DASH);
+        }
         canDash = false;
         isDashing = true;       
         float originalGravity = rigidbody.gravityScale;

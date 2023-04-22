@@ -41,6 +41,10 @@ public class PlayerLives : MonoBehaviour
     {
         if (coll.gameObject.CompareTag("Monster")&& !animator.GetBool("Dead"))
         {
+            if (AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE(Audio.SE_ATTACKED);
+            }
             Rigidbody2D enemyRigidbody = coll.GetComponent<Rigidbody2D>(); // Lấy Rigidbody của đối tượng kẻ địch;
             if (Time.time < time) return;
             if (hasShield)
@@ -79,6 +83,10 @@ public class PlayerLives : MonoBehaviour
         }
         else if ((coll.CompareTag("Bullet"))&& !animator.GetBool("Dead"))
         {
+            if (AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE(Audio.SE_ATTACKED);
+            }
             if (hasShield)
             {
                 hasShield = false;
@@ -115,6 +123,10 @@ public class PlayerLives : MonoBehaviour
     }
     private IEnumerator Die()
     {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(Audio.SE_DEATH);
+        }
         cinemachine.m_Follow = null;     
         Time.timeScale = 0.2f;
         animator.SetBool("Dead", true);

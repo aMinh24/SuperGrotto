@@ -52,6 +52,10 @@ public class ItemCollector : MonoBehaviour
         {
             if (collision.CompareTag(item))
             {
+                if (AudioManager.HasInstance)
+                {
+                    AudioManager.Instance.PlaySE(Audio.SE_COLLECT);
+                }
                 Destroy(collision.gameObject);
             }
         }

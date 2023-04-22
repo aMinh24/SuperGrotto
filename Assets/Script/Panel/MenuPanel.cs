@@ -19,6 +19,10 @@ public class MenuPanel : MonoBehaviour
         UIManager.Instance.ActiveGamePanel(true);
         GameManager.Instance.ChangeScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+    public void OnSettingButtonClick()
+    {
+        UIManager.Instance.ActiveSettingPanel(true);
+    }    
     public void OnExitButtonClick()
     {
         GameManager.Instance.EndGame();

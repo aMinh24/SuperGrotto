@@ -15916,7 +15916,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110467748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.0637474, y: 1.5726551, z: -10}
+  m_LocalPosition: {x: 2.132269, y: 1.5726551, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -16229,6 +16229,10 @@ PrefabInstance:
       propertyPath: waypoint
       value: 
       objectReference: {fileID: 1197442083}
+    - target: {fileID: 1725584596272773164, guid: e92079fc15b37f9449e722bfda89628c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1725584596272773167, guid: e92079fc15b37f9449e722bfda89628c, type: 3}
       propertyPath: m_Name
       value: ghost1

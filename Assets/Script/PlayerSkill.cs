@@ -45,6 +45,10 @@ public class PlayerSkill : MonoBehaviour
             BoomSkill = Instantiate(Boom, transform.position, Quaternion.identity);
             cinemachineImpulseSource.enabled = true;
             cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);
+            if (AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE(Audio.SE_SKILLHIT);
+            }
             Destroy(BoomSkill,0.7f);
         }
     }
