@@ -35,6 +35,8 @@ public class GamePanel : MonoBehaviour
     {
         ActiveBoots(false);
         ActiveHelmet(false);
+        saphie.SetText("0");
+        energy.SetText("0");
 
     }
     public void loadData()

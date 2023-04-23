@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 using Cinemachine;
-using static UnityEditor.ShaderData;
 
 public class PlayerLives : MonoBehaviour
 {

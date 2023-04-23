@@ -1,10 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
-using System.Threading;
 using UnityEngine;
-using static UnityEditor.Progress;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 

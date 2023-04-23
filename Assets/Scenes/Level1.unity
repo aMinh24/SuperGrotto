@@ -16075,6 +16075,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 80301538389019974, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 80301538389019977, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
       propertyPath: door
       value: 
@@ -16091,6 +16095,10 @@ PrefabInstance:
       propertyPath: cinemachine
       value: 
       objectReference: {fileID: 820402663}
+    - target: {fileID: 190132541604922541, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1300239561078348218, guid: 8fc449457032dbc40a1e722b3605344f, type: 3}
       propertyPath: virtualCamera
       value: 

@@ -24,4 +24,9 @@ public class PausePanel : MonoBehaviour
         UIManager.Instance.ActiveGamePanel(false);
         GameManager.Instance.RestartGame();
     }
+    public void OnSettingButton()
+    {
+        UIManager.Instance.ActivePausePanel(false);
+        UIManager.Instance.ActiveSettingPanel(true);
+    }    
 }
