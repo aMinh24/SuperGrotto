@@ -17,6 +17,7 @@ public class GameManager : BaseManager <GameManager>
     {
         if (isPlaying)
         {
+            
             isPlaying = false;
             Time.timeScale = 0f;
         }
@@ -53,6 +54,7 @@ public class GameManager : BaseManager <GameManager>
     }
     public void ChangeScene(int sceneIndex)
     {
+        if (sceneIndex>2) return;
         SceneManager.LoadScene(sceneIndex);
     }
 }

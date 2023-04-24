@@ -20,6 +20,7 @@ public class VictoryPanel : MonoBehaviour
     }
     public void OnNextLevelButton()
     {
+        if (SceneManager.GetActiveScene().buildIndex + 1 > 2) return;
         PlayerLives.updateHealthDelegate(6);
         DataManager.Instance.resetSaphire();
         UIManager.Instance.GamePanel.resetGamePanel();

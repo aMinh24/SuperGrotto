@@ -64,6 +64,9 @@ public class PlayerMovement : MonoBehaviour
     public bool bootPanel = false;
     private float timeBoots;
     private float initSpeed;
+
+
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -71,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         trailRenderer = GetComponent<TrailRenderer>();
+        
     }
     private void Start()
     {
@@ -81,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.IsPlaying) return;
         if (Time.time > timeBoots)
         {
             UIManager.Instance.GamePanel.ActiveBoots(false);
@@ -122,6 +127,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (!GameManager.Instance.IsPlaying) return;
         if (isDashing||animator.GetBool("Dead"))
         {
             return;
@@ -384,4 +390,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerSpeed = initSpeed;
     }
+
+    
+
 }

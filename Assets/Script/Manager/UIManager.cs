@@ -38,7 +38,6 @@ public class UIManager : BaseManager <UIManager>
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Debug.Log("pause");
                 GameManager.Instance.PauseGame();
                 ActivePausePanel(true);
             }

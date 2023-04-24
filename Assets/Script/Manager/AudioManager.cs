@@ -27,7 +27,6 @@ public class AudioManager : BaseManager<AudioManager>
 
         foreach (AudioClip bgm in bgmList)
         {
-            Debug.Log(bgm);
             bgmDic[bgm.name] = bgm;
         }
         foreach (AudioClip se in seList)
