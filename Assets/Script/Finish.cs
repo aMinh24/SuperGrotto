@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Finish : MonoBehaviour
@@ -7,7 +8,7 @@ public class Finish : MonoBehaviour
     private Rigidbody2D rb;
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = this.GetComponent<Rigidbody2D>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -19,10 +20,9 @@ public class Finish : MonoBehaviour
             {
                 AudioManager.Instance.PlaySE(Audio.SE_FINISH);
             }
-            rb.bodyType = RigidbodyType2D.Static;
+            GameManager.Instance.PauseGame();
             UIManager.Instance.ActiveVictoryPanel(true);
             DataManager.Instance.SavePlayerData();
-            GameManager.Instance.PauseGame();
         }
     }
 }

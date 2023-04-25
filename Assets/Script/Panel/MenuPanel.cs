@@ -29,6 +29,6 @@ public class MenuPanel : MonoBehaviour
     }
     private void loadData()
     {
-        saphire.SetText(DataManager.Instance.PlayerData.saphie.ToString());
+        saphire.SetText(DataManager.Instance.PlayerData.saphire.ToString());
     }
 }

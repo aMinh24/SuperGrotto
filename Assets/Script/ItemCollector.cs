@@ -17,6 +17,7 @@ public class ItemCollector : MonoBehaviour
     public static BootsSpeed updateBootsSpeed;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (Time.timeScale != 1) return;
         if (collision.tag.Equals("Boots"))
         {
             updateBootsSpeed();

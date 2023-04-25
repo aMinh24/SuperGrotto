@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa065082beb5c64a9e29aa67b5a8947, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  saphie: 1
+  saphire: 1

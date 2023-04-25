@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : BaseManager <GameManager>
 {
-    private bool isPlaying = false;
+
+    public bool isPlaying = false;
     public bool IsPlaying => isPlaying;
     public void StartGame()
     {
@@ -17,7 +19,6 @@ public class GameManager : BaseManager <GameManager>
     {
         if (isPlaying)
         {
-            
             isPlaying = false;
             Time.timeScale = 0f;
         }

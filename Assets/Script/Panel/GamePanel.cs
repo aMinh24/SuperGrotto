@@ -25,10 +25,7 @@ public class GamePanel : MonoBehaviour
         resetGamePanel();
         loadData();
     }
-    private void Update()
-    {
-        scale.SetText(Time.timeScale.ToString());
-    }
+
     public void ActiveBoots(bool active)
     {
         boots.SetActive(active);

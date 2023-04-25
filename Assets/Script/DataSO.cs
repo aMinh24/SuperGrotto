@@ -5,5 +5,5 @@ using UnityEngine;
 
 public class DataSO : ScriptableObject
 {
-    public int saphie;
+    public int saphire; 
 }

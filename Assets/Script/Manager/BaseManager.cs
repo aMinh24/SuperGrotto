@@ -17,6 +17,7 @@ public class BaseManager<T> : MonoBehaviour where T: BaseManager<T>
                     Debug.Log("No Singleton Instance");
                 }
             }
+ 
             return instance;
         }
     }

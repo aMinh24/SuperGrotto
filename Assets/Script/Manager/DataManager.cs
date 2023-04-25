@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 
 public class DataManager : BaseManager <DataManager>
 {
+    public TextMeshProUGUI txt;
     private int saphire = 0;
     public int Saphire => saphire;
     public DataSO PlayerData;
@@ -12,15 +14,24 @@ public class DataManager : BaseManager <DataManager>
     
     public void Init()
     {
-        dataFilePath = Application.dataPath + "/Data/playerdata.jason";
+        dataFilePath = Application.dataPath + "/Data/playerdata.json";
         Debug.Log(dataFilePath);
         this.LoadPlayerData();
+
     }
     private void WritePlayerDataSO()
     {
-        PlayerData.saphie+=saphire;
-        string toJson = JsonUtility.ToJson(PlayerData);
+        Debug.Log("1");
+        PlayerData.saphire+=saphire;
+
+        Debug.Log("2");
+        string toJson = JsonUtility.ToJson(PlayerData); txt.SetText("3");
+        Debug.Log("3");
+
         File.WriteAllText(dataFilePath, toJson);
+        Debug.Log("4");
+
+
     }
     private string ReadPlayerDataSO()
     {
@@ -46,6 +57,7 @@ public class DataManager : BaseManager <DataManager>
     }
     public void updateSaphire()
     {
+        txt.SetText(dataFilePath);
         saphire++;
     }
     public void resetSaphire()

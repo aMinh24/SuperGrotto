@@ -25,7 +25,6 @@ public class VictoryPanel : MonoBehaviour
         DataManager.Instance.resetSaphire();
         UIManager.Instance.GamePanel.resetGamePanel();
         GameManager.Instance.Resume();
-        Time.timeScale = 1.0f;
         UIManager.Instance.ActiveVictoryPanel(false);
         GameManager.Instance.ChangeScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

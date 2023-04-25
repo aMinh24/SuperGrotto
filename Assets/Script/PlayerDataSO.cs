@@ -4,5 +4,5 @@ using UnityEngine;
 [SerializeField]
 public class PlayerDataSO
 {
-    public int saphie;
+    public int saphire;
 }

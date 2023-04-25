@@ -49,6 +49,7 @@ public class UIManager : BaseManager <UIManager>
     }
     public void ActiveVictoryPanel(bool active)
     {
+
         victoryPanel.gameObject.SetActive(active);
     }
     public void ActiveMenuPanel(bool active)
