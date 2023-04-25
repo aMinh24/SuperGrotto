@@ -13,6 +13,8 @@ public class GamePanel : MonoBehaviour
     private TextMeshProUGUI saphie;
     [SerializeField]
     private TextMeshProUGUI energy;
+    [SerializeField]
+    private TextMeshProUGUI scale;
     private void Start()
     {
         DataManager.Instance.Init();
@@ -22,6 +24,10 @@ public class GamePanel : MonoBehaviour
         DataManager.Instance.resetSaphire();
         resetGamePanel();
         loadData();
+    }
+    private void Update()
+    {
+        scale.SetText(Time.timeScale.ToString());
     }
     public void ActiveBoots(bool active)
     {

@@ -85,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.timeScale == 0) return;
         if (!GameManager.Instance.IsPlaying) return;
         if (Time.time > timeBoots)
         {
@@ -127,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (Time.timeScale == 0) return;
         if (!GameManager.Instance.IsPlaying) return;
         if (isDashing||animator.GetBool("Dead"))
         {
