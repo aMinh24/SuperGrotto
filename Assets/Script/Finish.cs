@@ -16,7 +16,7 @@ public class Finish : MonoBehaviour
     {
         if (collision.tag.Equals("Door"))
         {
-            if (SceneManager.GetActiveScene().buildIndex <2)
+            if (SceneManager.GetActiveScene().buildIndex <CONST.MAX_LEVEL)
             data.sceneIndex = SceneManager.GetActiveScene().buildIndex+1;
             if (gameObject.GetComponent<ItemCollector>().Energy == 0) return;
             

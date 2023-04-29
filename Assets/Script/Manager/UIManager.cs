@@ -23,6 +23,10 @@ public class UIManager : BaseManager <UIManager>
     [SerializeField]
     private SettingPanel settingPanel;
     public SettingPanel SettingPanel =>settingPanel;
+
+    [SerializeField]
+    private Tutorial tutorial;
+    public Tutorial Tutorial => tutorial;
     private void Start()
     {
         ActiveVictoryPanel(false);
@@ -31,6 +35,7 @@ public class UIManager : BaseManager <UIManager>
         ActiveGamePanel(false);
         ActivePausePanel(false);
         ActiveSettingPanel(false);
+        ActiveTutorial(false);
     }
     private void Update()
     {
@@ -42,6 +47,10 @@ public class UIManager : BaseManager <UIManager>
                 ActivePausePanel(true);
             }
         }
+    }
+    public void ActiveTutorial(bool active)
+    {
+        tutorial.gameObject.SetActive(active);
     }
     public void ActiveSettingPanel(bool active)
     {

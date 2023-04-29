@@ -16,4 +16,5 @@ public class CONST : MonoBehaviour
     public const float BGM_FADE_SPEED_RATE_HIGHT = 0.9f;
     public const float BGM_FADE_SPEED_RATE_LOW = 0.3f;
 
+    public const int MAX_LEVEL = 2;
 }
