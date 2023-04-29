@@ -15,10 +15,7 @@ public class GamePanel : MonoBehaviour
     private TextMeshProUGUI energy;
     [SerializeField]
     private TextMeshProUGUI scale;
-    private void Start()
-    {
-        DataManager.Instance.Init();
-    }
+
     private void OnEnable()
     {
         DataManager.Instance.resetSaphire();

@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class DataManager : BaseManager <DataManager>
 {
-    public TextMeshProUGUI txt;
     private int saphire = 0;
     public int Saphire => saphire;
     public DataSO PlayerData;
@@ -14,22 +13,21 @@ public class DataManager : BaseManager <DataManager>
     
     public void Init()
     {
-        dataFilePath = Application.dataPath + "/Data/playerdata.json";
+        dataFilePath = Application.persistentDataPath + "/playerdata.json";
         Debug.Log(dataFilePath);
         this.LoadPlayerData();
 
     }
     private void WritePlayerDataSO()
     {
-        Debug.Log("1");
         PlayerData.saphire+=saphire;
-
-        Debug.Log("2");
-        string toJson = JsonUtility.ToJson(PlayerData); txt.SetText("3");
-        Debug.Log("3");
-
+        Debug.Log(PlayerData.saphire);
+        string toJson = JsonUtility.ToJson(PlayerData);
+        if(!File.Exists(dataFilePath))
+        {
+            File.Create(dataFilePath);
+        }
         File.WriteAllText(dataFilePath, toJson);
-        Debug.Log("4");
 
 
     }
@@ -57,7 +55,6 @@ public class DataManager : BaseManager <DataManager>
     }
     public void updateSaphire()
     {
-        txt.SetText(dataFilePath);
         saphire++;
     }
     public void resetSaphire()

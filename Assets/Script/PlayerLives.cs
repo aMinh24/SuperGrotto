@@ -11,7 +11,7 @@ public class PlayerLives : MonoBehaviour
     public int setLive
     { set { lives = value; } }
         [SerializeField]
-    private float pushForce = 10f;
+    private float pushForce = 5f;
     [SerializeField]
     private Animator animator;
     [SerializeField]

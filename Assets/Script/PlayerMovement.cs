@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.K) && canDash)
+        if (Input.GetKeyDown(KeyCode.K) && canDash&& isRunning)
         {
             StartCoroutine(Dash());
         }
@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (dirY != 0 && canClimb) isClimbing = true;
         else isClimbing = false;
-        if (dirX != 0 && canClimb) isRunning = true;
+        if (dirX != 0 /*&& canClimb*/) isRunning = true;
         else isRunning = false;
         Boom = false;
         shooting();
@@ -191,6 +191,10 @@ public class PlayerMovement : MonoBehaviour
             Invoke("ShootAnimation", 0.2f);
             isShooting = true;
             shootingTime = Time.time + 1f;
+            if (AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE(Audio.SE_SHOOT);
+            }
         }
         if (isSkilling && Time.time < comboTime)
         {
@@ -224,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
             bullet = Instantiate(bulletPrefab, firepoint[1].position, Quaternion.identity);
         }
         else bullet = Instantiate(bulletPrefab, firepoint[0].position, Quaternion.identity);
-        Destroy(bullet, 3f);
+        Destroy(bullet, 2f);
     }
     private void SkillAnimation()
     {
@@ -245,11 +249,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (canClimb&&isClimbing&&!IsGround())
         {
-            virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = 3;
-            if (AudioManager.HasInstance)
-            {
-                //AudioManager.Instance.PlaySE(Audio.SE_WALK);
-            }    
+            virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = 3; 
             animator.SetBool("Climb", true);
         }
         
@@ -261,10 +261,7 @@ public class PlayerMovement : MonoBehaviour
             if (IsGround() && !isShooting)
             {
                 movementState = MovementState.Running;
-                if (AudioManager.HasInstance)
-                {
-                    //AudioManager.Instance.PlaySE(Audio.SE_WALK);
-                }
+                
             }
         }
         else if (dirX < 0f)
@@ -275,10 +272,6 @@ public class PlayerMovement : MonoBehaviour
             if (IsGround() && !isShooting) 
             {
                 movementState = MovementState.Running;
-                if (AudioManager.HasInstance)
-                {
-                    //AudioManager.Instance.PlaySE(Audio.SE_WALK);
-                }
             }
 
 
@@ -310,19 +303,10 @@ public class PlayerMovement : MonoBehaviour
         {
             //Invoke("ShootAnimation", 0.2f);
             movementState = MovementState.Shoot;
-            if (AudioManager.HasInstance)
-            {
-                AudioManager.Instance.PlaySE(Audio.SE_SHOOT);
-            }
             isShooting = false;
         }
         if (isShooting && isRunning)
         {
-            Debug.Log("run shoot");
-            if (AudioManager.HasInstance)
-            {
-                AudioManager.Instance.PlaySE(Audio.SE_SHOOT);
-            }
             movementState = MovementState.RunningShoot;
 
             //isShooting = false;

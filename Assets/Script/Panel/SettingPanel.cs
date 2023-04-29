@@ -41,6 +41,10 @@ public class SettingPanel : MonoBehaviour
 
     public void OnCancelButtonClick()
     {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(Audio.SE_CHOOSE);
+        }
         if (UIManager.HasInstance)
         {
             UIManager.Instance.ActiveSettingPanel(false);
@@ -57,6 +61,10 @@ public class SettingPanel : MonoBehaviour
     }
     public void OnSubmitButtonClick()
     {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(Audio.SE_CHOOSE);
+        }
         if (UIManager.HasInstance)
         {
             AudioManager.Instance.ChangeBGMVolume(bgmValue);

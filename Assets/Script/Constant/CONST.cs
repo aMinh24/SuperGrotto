@@ -6,7 +6,7 @@ public class CONST : MonoBehaviour
 {
     public const string BGM_VOLUME_KEY = "BGM_VOLUME_KEY";
     public const string SE_VOLUME_KEY = "SE_VOLUME_KEY";
-    public const float BGM_VOLUME_DEFAULT = 0.2f;
+    public const float BGM_VOLUME_DEFAULT = 0.15f;
     public const float SE_VOLUME_DEFAULT = 1f;
     public const string BGM_MUTE_KEY = "BGM_MUTE_KEY";
     public const string SE_MUTE_KEY = "SE_MUTE_KEY";

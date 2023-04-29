@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Finish : MonoBehaviour
 {
+    [SerializeField]
+    private DataSO data;
     private Rigidbody2D rb;
     private void Awake()
     {
@@ -14,6 +16,8 @@ public class Finish : MonoBehaviour
     {
         if (collision.tag.Equals("Door"))
         {
+            if (SceneManager.GetActiveScene().buildIndex <2)
+            data.sceneIndex = SceneManager.GetActiveScene().buildIndex+1;
             if (gameObject.GetComponent<ItemCollector>().Energy == 0) return;
             
             if (AudioManager.HasInstance)

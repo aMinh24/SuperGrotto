@@ -5,5 +5,6 @@ using UnityEngine;
 
 public class DataSO : ScriptableObject
 {
-    public int saphire; 
+    public int saphire;
+    public int sceneIndex;
 }
