@@ -7,8 +7,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField]
     private Animator animator;
-    [SerializeField]
-    //private PlayerLives playerLives;
+
     private void Start()
     {
         animator = GetComponent<Animator>();

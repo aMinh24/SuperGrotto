@@ -65,7 +65,8 @@ public class PlayerMovement : MonoBehaviour
     private float timeBoots;
     private float initSpeed;
 
-
+    public delegate void skillCooldown();
+    public static skillCooldown skillCooldownDelegate;
 
     void Awake()
     {
@@ -206,8 +207,9 @@ public class PlayerMovement : MonoBehaviour
                     Invoke("SkillAnimation", 0.3f);
                     currentKey = 0;
                     isSkilling = false;
-                    cooldownSkill = Time.time + 5f;
+                    cooldownSkill = Time.time + CONST.SKILL_COOLDOWN;
                     Boom = true;
+                    skillCooldownDelegate();
                 }
             }
             else if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Space))

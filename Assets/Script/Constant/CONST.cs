@@ -17,4 +17,5 @@ public class CONST : MonoBehaviour
     public const float BGM_FADE_SPEED_RATE_LOW = 0.3f;
 
     public const int MAX_LEVEL = 2;
+    public const float SKILL_COOLDOWN = 5f;
 }
