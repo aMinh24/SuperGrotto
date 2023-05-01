@@ -68,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
     public delegate void skillCooldown();
     public static skillCooldown skillCooldownDelegate;
 
+    
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -75,13 +77,14 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         trailRenderer = GetComponent<TrailRenderer>();
-        
     }
     private void Start()
     {
         initSpeed = playerSpeed;
         trailRenderer.emitting = false;
         ItemCollector.updateBootsSpeed += ChangeSpeed;
+
+        skillPrefab = Resources.Load("SKILL/"+DataManager.Instance.PlayerData.skillName) as GameObject;
     }
     // Update is called once per frame
     void Update()
@@ -224,6 +227,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void ShootAnimation()
     {
+
         GameObject bullet;
         if (side)
         {

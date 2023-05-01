@@ -7,4 +7,5 @@ public class DataSO : ScriptableObject
 {
     public int saphire;
     public int sceneIndex;
+    public string skillName;
 }

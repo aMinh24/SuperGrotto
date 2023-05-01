@@ -12,10 +12,6 @@ public class PlayerSkill : MonoBehaviour
     [SerializeField]
     private SpriteRenderer spriteRenderer;
     [SerializeField]
-    private CircleCollider2D circleCollider;
-    [SerializeField]
-    private Animator animator;
-    [SerializeField]
     private GameObject Boom;
     public CinemachineCollisionImpulseSource cinemachineImpulseSource;
     private void Awake()
@@ -32,8 +28,6 @@ public class PlayerSkill : MonoBehaviour
             spriteRenderer.flipX = false;
             rb.AddForce(new Vector2(1, 0) * speed, ForceMode2D.Impulse);
         }
-        circleCollider = GetComponent<CircleCollider2D>();
-        animator = GetComponent<Animator>();
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
@@ -42,6 +36,7 @@ public class PlayerSkill : MonoBehaviour
         {
             Destroy(gameObject);
             GameObject BoomSkill;
+            Boom = Resources.Load("SKILLHIT/" + DataManager.Instance.PlayerData.skillName) as GameObject;
             BoomSkill = Instantiate(Boom, transform.position, Quaternion.identity);
             cinemachineImpulseSource.enabled = true;
             cinemachineImpulseSource.GenerateImpulse(Camera.main.transform.forward);

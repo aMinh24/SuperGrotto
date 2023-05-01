@@ -30,6 +30,15 @@ public class MenuPanel : MonoBehaviour
         ActiveButtonStart(false);
         loadData();
     }
+    public void OnOptionButton()
+    {
+        if (AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE(Audio.SE_CHOOSE);
+        }
+        UIManager.Instance.ActiveMenuPanel(false);
+        UIManager.Instance.ActiveOption(true);
+    }    
     public void OnTutorialButton()
     {
         if (AudioManager.HasInstance)

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saphire: 0
   sceneIndex: 0
+  skillName: Spark

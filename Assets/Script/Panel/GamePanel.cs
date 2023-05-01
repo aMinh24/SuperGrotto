@@ -23,6 +23,10 @@ public class GamePanel : MonoBehaviour
     private Color color;
     private void OnEnable()
     {
+        //cooldownImg.sprite = Resources.Load("SKILLIMG/"+DataManager.Instance.PlayerData.skillName) as Sprite;
+        cooldownImg.sprite = Resources.Load<Sprite>("SKILLIMG/" + DataManager.Instance.PlayerData.skillName);
+        Debug.Log(DataManager.Instance.PlayerData.skillName);
+        Debug.Log(cooldownImg.sprite);
         PlayerMovement.skillCooldownDelegate += updateSkillCooldown;
         DataManager.Instance.resetSaphire();
         resetGamePanel();
