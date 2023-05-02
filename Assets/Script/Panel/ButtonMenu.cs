@@ -32,6 +32,7 @@ public class ButtonMenu : MonoBehaviour
         {
             AudioManager.Instance.PlaySE(Audio.SE_CHOOSE);
         }
-        GameManager.Instance.EndGame();
+        UIManager.Instance.ActiveMenuPanel(false);
+        UIManager.Instance.ActiveExitPanel(true);
     }
 }

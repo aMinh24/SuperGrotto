@@ -31,6 +31,10 @@ public class UIManager : BaseManager <UIManager>
     [SerializeField]
     private Option option;
     public Option Option => option;
+
+    [SerializeField]
+    private ExitPanel exitPanel;
+    public ExitPanel ExitPanel =>exitPanel;
     private void Start()
     {
         ActiveVictoryPanel(false);
@@ -41,6 +45,7 @@ public class UIManager : BaseManager <UIManager>
         ActiveSettingPanel(false);
         ActiveTutorial(false);
         ActiveOption(false);
+        ActiveExitPanel(false);
     }
     private void Update()
     {
@@ -52,6 +57,10 @@ public class UIManager : BaseManager <UIManager>
                 ActivePausePanel(true);
             }
         }
+    }
+    public void ActiveExitPanel(bool active)
+    {
+        exitPanel.gameObject.SetActive(active);
     }
     public void ActiveOption(bool active)
     {
